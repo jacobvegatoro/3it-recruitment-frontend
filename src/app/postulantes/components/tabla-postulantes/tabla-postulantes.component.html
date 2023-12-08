@@ -1,0 +1,32 @@
+<div *ngIf="postulantes.length === 0; else table" class="alert alert-warning text-center">
+    No hay postulantes que mostrar
+</div>
+
+<ng-template #table>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Ciudad</th>
+                <th>Enlace Bizneo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let postulante of postulantes">
+                <td>{{ postulante.id }}</td>
+                <td>{{ postulante.nombres }}</td>
+                <td>{{ postulante.apellidos }}</td>
+                <td>{{ postulante.ciudad }}</td>
+                <td><a href="{{ postulante.enlaceBizneo }}" target="_blank">Acceder</a></td>
+                <td>
+                    <a href="#">Detalle</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</ng-template>

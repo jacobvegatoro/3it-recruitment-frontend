@@ -1,0 +1,18 @@
+<h2>Postulantes</h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+      <!-- SearchBox -->
+      <app-busqueda 
+        (onValue)="buscarPorNombre($event)" 
+        placeholder="Buscar por nombre y apellido"></app-busqueda>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <hr>
+    <app-tabla-postulantes [postulantes]="postulantes"></app-tabla-postulantes>
+  </div>
+</div>
