@@ -16,7 +16,7 @@ export class ListadoPostulantesComponent implements OnInit {
   buscarPorNombre( nombre:string ):void{
     console.log('Desde Listado de postulantes');
     console.log({ nombre });
-    this.postulantesService.obtenerPostulantes()
+    this.postulantesService.buscarPostulantePorNombre(nombre)
       .subscribe( postulantes => {
         this.postulantes = postulantes;
         //console.log(this.postulantes);

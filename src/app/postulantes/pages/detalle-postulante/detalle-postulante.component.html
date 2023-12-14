@@ -1,1 +1,33 @@
-<p>detalle-postulante works!</p>
+<ng-template #loading>
+    <div class="alert alert-info text-center">
+        Espere por favor
+    </div>
+</ng-template>
+
+<div *ngIf="postulante; else loading">
+    <div class="row">
+        <div class="col-12">
+            <h2>Postulante: <strong>{{ postulante.nombres }} {{ postulante.apellidos }}</strong></h2>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <h3>Imagen</h3>
+            <img src="assets/images/avatar.jpeg" [alt]="postulante.nombres" class="img-thumbnail">
+        </div>
+        <div class="col-8">
+            <h3>Información</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>Ciudad: </strong> {{ postulante.ciudad }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Enlace Bizneo: </strong> {{ postulante.enlaceBizneo }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

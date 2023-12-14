@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostulantesService } from '../../services/postulantes.service';
+import { switchMap } from 'rxjs';
+import { Postulante } from '../../interfaces/postulante';
 
 @Component({
   selector: 'app-detalle-postulante',
@@ -9,25 +11,27 @@ import { PostulantesService } from '../../services/postulantes.service';
 })
 export class DetallePostulanteComponent implements OnInit {
 
+  public postulante?:Postulante;
+
   constructor( 
     private activatedRoute:ActivatedRoute,
+    private router:Router,
     private postulantesService:PostulantesService 
   ){}
 
   ngOnInit(): void {
     this.activatedRoute.params
-      .subscribe( ({ id }) => {
-
-        this.buscarPostulante( id );
-
+      .pipe(
+        switchMap( ({ id }) => this.postulantesService.obtenerPostulantePorId( id )),
+      )
+      .subscribe( postulante => {
+        
+        if ( !postulante ) return this.router.navigateByUrl('');
+        
+        return this.postulante = postulante;
+        //console.log({ postulante })
+        //return;
       });
   }
   
-  buscarPostulante( id:string ){
-    this.postulantesService.obtenerPostulantePorId( id )
-    .subscribe ( postulante => {
-      console.log( {postulante} );
-    });
-  }
-
 }

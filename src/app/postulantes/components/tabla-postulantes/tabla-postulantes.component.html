@@ -23,7 +23,7 @@
                 <td>{{ postulante.ciudad }}</td>
                 <td><a href="{{ postulante.enlaceBizneo }}" target="_blank">Acceder</a></td>
                 <td>
-                    <a href="#">Detalle</a>
+                    <a [routerLink]="[ '/postulantes/detalle', postulante.id ]">Detalle</a>
                 </td>
             </tr>
         </tbody>
