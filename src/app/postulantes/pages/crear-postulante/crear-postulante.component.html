@@ -1,1 +1,115 @@
-<p>crear-postulante works!</p>
+<h2>Postulantes - Crear postulante</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="myForm" (ngSubmit)="onSave()" autocomplete="off">
+
+            <!-- Campo de nombre -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-9">
+
+                    <input type="text"
+                           class="form-control"
+                           formControlName="nombre"
+                           placeholder="Nombre del postulante">
+
+                    <span *ngIf="isValidField('nombre')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('nombre') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de apellido -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Apellido</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="apellido"
+                           placeholder="Apellido del postulante">
+                    <span *ngIf="isValidField('apellido')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('apellido') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de ciudad -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Ciudad</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="ciudad"
+                           placeholder="Ciudad del postulante">
+
+                    <span *ngIf="isValidField('ciudad')" 
+                           class="form-text text-danger">
+                           {{ getFieldError('ciudad') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de enlace a Bizneo -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Enlace a Bizneo</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="enlaceBizneo"
+                           placeholder="Enlace a Bizneo">
+                    <span *ngIf="isValidField('enlaceBizneo')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('enlaceBizneo') }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit"
+                            class="btn btn-primary float-end">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col">
+
+        <span>Valid</span>
+        <pre>{{ myForm.valid | json }}</pre>
+
+        <span>Pristine</span>
+        <pre>{{ myForm.pristine | json }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ myForm.touched | json }}</pre>
+
+        <span>Nombre</span>
+        <pre>{{ myForm.controls['nombre'].value | json }}</pre>
+
+        <span>Nombre - Errors</span>
+        <pre>{{ myForm.controls['nombre'].errors | json }}</pre>
+
+        <span>Enlace</span>
+        <pre>{{ myForm.controls['enlaceBizneo'].value | json }}</pre>
+
+        <span>Producto</span>
+        <pre>{{ myForm.controls['enlaceBizneo'].errors  | json }}</pre>
+    </div>
+</div>

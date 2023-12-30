@@ -22,33 +22,39 @@
     Contact Page
   </li> -->
 
-  <li routerLink="inicio"
+  <li [routerLink]="['/inicio']"
     routerLinkActive="active"
     class="list-group-item">
     Inicio
   </li>
 
-  <li routerLink="postulantes/listado"
+  <li [routerLink]="['/postulantes/listado']"
     routerLinkActive="active"
     class="list-group-item">
     Postulantes
   </li>
-  <li routerLink="postulantes/crear"
+  <li [routerLink]="['/postulantes/crear']"
     routerLinkActive="active"
     class="list-group-item">
     Crear postulante
   </li>
 
-  <li routerLink="acerca-de"
+  <li [routerLink]="['/acerca-de']"
     routerLinkActive="active"
     class="list-group-item">
     Acerca de
   </li>
 
-  <li routerLink="contacto"
+  <li [routerLink]="['/contacto']"
     routerLinkActive="active"
     class="list-group-item">
     Contacto
+  </li>
+
+  <li (click)="onLogout()"
+    routerLinkActive="active"
+    class="list-group-item">
+    Cerrar sesión
   </li>
 
 </ul>

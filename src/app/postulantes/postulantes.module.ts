@@ -7,8 +7,9 @@ import { PostulantesRoutingModule } from './postulantes-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { TablaPostulantesComponent } from './components/tabla-postulantes/tabla-postulantes.component';
 import { DetallePostulanteComponent } from './pages/detalle-postulante/detalle-postulante.component';
-
-
+import { RouterModule } from '@angular/router';
+import { PostulantesLayoutComponent } from './layouts/postulantes-layout/postulantes-layout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,15 @@ import { DetallePostulanteComponent } from './pages/detalle-postulante/detalle-p
     CrearPostulanteComponent,
     EditarPostulanteComponent,
     TablaPostulantesComponent,
-    DetallePostulanteComponent
+    DetallePostulanteComponent,
+    PostulantesLayoutComponent
   ],
   imports: [
     CommonModule,
     PostulantesRoutingModule,
-    SharedModule
+    SharedModule,
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class PostulantesModule { }

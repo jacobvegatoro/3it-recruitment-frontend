@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Postulante } from '../interfaces/postulante';
 
@@ -23,12 +23,22 @@ export class PostulantesService {
 
   obtenerPostulantes():Observable<Postulante[]>{
     const url = `${this.apiUrl}/postulantes`;
-    return this.http.get<Postulante[]>( url );
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+      
+    return this.http.get<Postulante[]>( url, { headers } );
   }
 
   buscarPostulantePorNombre( nombre:string ):Observable<Postulante[]>{
     const url = `${ this.apiUrl }/postulantes/buscar?keyword=${ nombre }`;
-    return this.http.get<Postulante[]>( url );
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.get<Postulante[]>( url, { headers } );
   }
 
 }
