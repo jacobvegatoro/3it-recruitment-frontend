@@ -11,7 +11,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Ciudad</th>
-                <th>Enlace Bizneo</th>
+                <th>Acciones</th>
                 <th></th>
             </tr>
         </thead>
@@ -21,9 +21,22 @@
                 <td>{{ postulante.nombres }}</td>
                 <td>{{ postulante.apellidos }}</td>
                 <td>{{ postulante.ciudad }}</td>
-                <td><a href="{{ postulante.enlaceBizneo }}" target="_blank">Acceder</a></td>
                 <td>
-                    <a [routerLink]="[ '/postulantes/detalle', postulante.id ]">Detalle</a>
+                    <a href="{{ postulante.enlaceBizneo }}" target="_blank">
+                        <i class="bi bi-browser-chrome text-primary" title="Ir a Bizneo"></i>
+                    </a>
+                    &nbsp;
+                    <a [routerLink]="[ '/postulantes/detalle', postulante.id ]">
+                        <i class="bi bi-info-square text-warning" title="Detalle"></i>
+                    </a>
+                    &nbsp;
+                    <a [routerLink]="[ '/postulantes/editar', postulante.id ]">
+                        <i class="bi bi-pencil-square text-success" title="Editar"></i>
+                    </a>
+                    &nbsp;
+                    <a [routerLink]="[ '/postulantes/eliminar', postulante.id ]">
+                        <i class="bi bi-trash-fill text-danger" title="Eliminar"></i>
+                    </a>
                 </td>
             </tr>
         </tbody>

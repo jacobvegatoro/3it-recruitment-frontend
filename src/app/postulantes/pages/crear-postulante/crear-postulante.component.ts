@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PostulantesService } from '../../services/postulantes.service';
+import { Postulante } from '../../interfaces/postulante';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-postulante',
@@ -18,13 +21,13 @@ export class CrearPostulanteComponent implements OnInit {
   private urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
   public myForm:FormGroup = this.fb.group({
-    nombre: ['', [ Validators.required, Validators.minLength(3) ]],
-    apellido: ['', [ Validators.required, Validators.minLength(3) ]],
+    nombres: ['', [ Validators.required, Validators.minLength(3) ]],
+    apellidos: ['', [ Validators.required, Validators.minLength(3) ]],
     ciudad: ['', [ Validators.required, Validators.minLength(5) ]],
     enlaceBizneo: ['', [Validators.required, Validators.pattern(this.urlRegex) ] ],
   });
 
-  constructor ( private fb:FormBuilder ){}
+  constructor ( private fb:FormBuilder, private postulantesService:PostulantesService ){}
 
   ngOnInit():void{
 
@@ -57,6 +60,11 @@ export class CrearPostulanteComponent implements OnInit {
     return null;
   }
 
+  get currentPostulante():Postulante {
+    const postulante = this.myForm.value as Postulante;
+    return postulante;
+  }
+
   onSave():void{
 
     if ( this.myForm.invalid ){
@@ -65,6 +73,22 @@ export class CrearPostulanteComponent implements OnInit {
     } 
 
     console.log(this.myForm.value);
+
+    this.postulantesService.crearPostulante( this.currentPostulante )
+    .subscribe({
+      next: () => {
+        Swal.fire({  
+          text: "El postulante ha sido creado exitosamente",
+          icon: "success"
+        });
+      },
+      error: () => {
+        Swal.fire('Error', 'Ocurrió un error al crear el postulante', 'error');
+      }
+    });
+    //.subscribe( postulante => {
+      //  console.log(postulante);
+      //});
 
     this.myForm.reset();
     //this.myForm.reset({ enlaceBizneo: 'http://' });

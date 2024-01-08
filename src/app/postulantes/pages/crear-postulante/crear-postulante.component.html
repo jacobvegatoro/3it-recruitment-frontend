@@ -13,12 +13,12 @@
 
                     <input type="text"
                            class="form-control"
-                           formControlName="nombre"
+                           formControlName="nombres"
                            placeholder="Nombre del postulante">
 
-                    <span *ngIf="isValidField('nombre')" 
+                    <span *ngIf="isValidField('nombres')" 
                         class="form-text text-danger">
-                        {{ getFieldError('nombre') }}
+                        {{ getFieldError('nombres') }}
                     </span>
                 </div>
             </div>
@@ -29,11 +29,11 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           formControlName="apellido"
+                           formControlName="apellidos"
                            placeholder="Apellido del postulante">
-                    <span *ngIf="isValidField('apellido')" 
+                    <span *ngIf="isValidField('apellidos')" 
                         class="form-text text-danger">
-                        {{ getFieldError('apellido') }}
+                        {{ getFieldError('apellidos') }}
                     </span>
                 </div>
             </div>
@@ -87,9 +87,12 @@
 
 
 
-
+<!-- 
 <div class="row">
     <div class="col">
+
+        <span>Postulante</span>
+        <pre>{{ currentPostulante | json }}</pre>
 
         <span>Valid</span>
         <pre>{{ myForm.valid | json }}</pre>
@@ -101,10 +104,10 @@
         <pre>{{ myForm.touched | json }}</pre>
 
         <span>Nombre</span>
-        <pre>{{ myForm.controls['nombre'].value | json }}</pre>
+        <pre>{{ myForm.controls['nombres'].value | json }}</pre>
 
         <span>Nombre - Errors</span>
-        <pre>{{ myForm.controls['nombre'].errors | json }}</pre>
+        <pre>{{ myForm.controls['nombres'].errors | json }}</pre>
 
         <span>Enlace</span>
         <pre>{{ myForm.controls['enlaceBizneo'].value | json }}</pre>
@@ -113,3 +116,4 @@
         <pre>{{ myForm.controls['enlaceBizneo'].errors  | json }}</pre>
     </div>
 </div>
+-->
