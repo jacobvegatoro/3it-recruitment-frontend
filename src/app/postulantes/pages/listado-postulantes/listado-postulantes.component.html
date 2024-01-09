@@ -17,6 +17,9 @@
     <div class="row">
       <div class="col">
         <hr>
+          <button [routerLink]="['/postulantes/crear']" class="btn btn-success float-end">
+            Crear postulante
+          </button>
         <app-tabla-postulantes [postulantes]="postulantes"></app-tabla-postulantes>
       </div>
     </div>

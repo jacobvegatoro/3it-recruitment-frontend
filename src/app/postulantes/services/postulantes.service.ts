@@ -57,6 +57,7 @@ export class PostulantesService {
 
   editarPostulante(postulante:Postulante):Observable<Postulante>{
     const url = `${ this.apiUrl }/postulantes/${ postulante.id }`;
+    console.log(url);
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders()
@@ -65,14 +66,14 @@ export class PostulantesService {
     return this.http.put<Postulante>(url, postulante, { headers });
   }
 
-  eliminarPostulantePorId(id:string):Observable<boolean>{
+  eliminarPostulantePorId(id:number):Observable<boolean>{
     const url = `${ this.apiUrl }/postulantes/${ id }`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders()
       .set('Authorization',`Bearer ${ token }`);
 
-    return this.http.delete(url)
+    return this.http.delete(url, { headers })
       .pipe(
         catchError( err => of(false) ),
         map ( resp => true )
