@@ -2,22 +2,35 @@ import { Component, Input } from '@angular/core';
 import { Postulante } from '../../interfaces/postulante';
 import Swal from 'sweetalert2';
 import { PostulantesService } from '../../services/postulantes.service';
-import { Router } from '@angular/router';
+import { PagingConfig } from '../../interfaces/paging-config.model';
 
 @Component({
   selector: 'app-tabla-postulantes',
   templateUrl: './tabla-postulantes.component.html',
   styleUrls: ['./tabla-postulantes.component.css']
 })
-export class TablaPostulantesComponent {
+export class TablaPostulantesComponent implements PagingConfig {
 
   @Input()
   public postulantes:Postulante[] = [];
 
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
+
+  tableSize: number[] = [5,10,15,20];
+
+  pagingConfig:PagingConfig = {} as PagingConfig;
+
   constructor(
-    private postulantesService:PostulantesService,
-    private router:Router,
-  ){}
+    private postulantesService:PostulantesService
+  ){
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: this.totalItems
+    }    
+  }
 
   onDeletePostulante(id:number):void{
     Swal.fire({
@@ -58,6 +71,11 @@ export class TablaPostulantesComponent {
     .subscribe( postulantes => {
       this.postulantes = postulantes;
     });
+  }
+
+  onTableDataChange(event:any){
+    this.pagingConfig.currentPage  = event;
+    this.actualizarListado();
   }
 
 }

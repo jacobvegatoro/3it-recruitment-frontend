@@ -10,6 +10,7 @@ import { DetallePostulanteComponent } from './pages/detalle-postulante/detalle-p
 import { RouterModule } from '@angular/router';
 import { PostulantesLayoutComponent } from './layouts/postulantes-layout/postulantes-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PostulantesRoutingModule,
     SharedModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class PostulantesModule { }
