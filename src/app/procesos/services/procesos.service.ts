@@ -3,6 +3,9 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { Proceso } from '../interfaces/proceso.interface';
+import { Rol } from '../interfaces/rol.interface';
+import { Cliente } from '../interfaces/cliente.interface';
+import { Celula } from '../interfaces/celula.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +23,42 @@ export class ProcesosService {
       .set('Authorization',`Bearer ${ token }`);
       
     return this.http.get<Proceso[]>( url, { headers } );
+  }
+
+  obtenerRoles():Observable<Rol[]>{
+
+    const url = `${this.apiUrl}/roles`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.get<Rol[]>( url, { headers } );
+    
+  }
+
+  obtenerClientes():Observable<Cliente[]>{
+
+    const url = `${this.apiUrl}/clientes`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.get<Cliente[]>( url, { headers } );
+    
+  }
+
+  obtenerCelulas():Observable<Celula[]>{
+
+    const url = `${this.apiUrl}/celulas`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.get<Celula[]>( url, { headers } );
+  
   }
 
 }

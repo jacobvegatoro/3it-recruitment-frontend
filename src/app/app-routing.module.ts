@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () => import('./postulantes/postulantes.module').then(m => m.PostulantesModule )
   },
   {
+    path:'procesos',
+    canActivate: [ isAuthenticatedGuard ],
+    loadChildren: () => import('./procesos/procesos.module').then(m => m.ProcesosModule )
+  },
+  {
     path:'auth',
     canActivate: [ isNotAuthenticatedGuard ],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule )

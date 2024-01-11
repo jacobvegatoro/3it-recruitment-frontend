@@ -1,0 +1,82 @@
+<h2>Procesos - Crear proceso</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="formProceso" (ngSubmit)="onSave()" autocomplete="off">
+
+            <!-- Nombre y apellido del postulante -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Postulante</label>
+                <div class="col-sm-9 col-form-label">
+                    {{ postulante?.nombres }} {{ postulante?.apellidos }}
+                </div>
+            </div>
+
+            <!-- Campo de cliente -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Cliente</label>
+                <div class="col-sm-9">
+                    <select name="cliente" id="cliente" formControlName="cliente" class="form-control">
+                        <option value="">Selecciona un cliente</option>
+                        <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }}</option>
+                    </select>
+                    <span *ngIf="isValidField('cliente')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('cliente') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de célula -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Célula</label>
+                <div class="col-sm-9">
+                    <select name="celula" id="celula" formControlName="celula" class="form-control">
+                        <option value="">Selecciona una célula</option>
+                        <option *ngFor="let celula of celulas" [value]="celula.id">{{ celula.nombre }}</option>
+                    </select>
+                    <span *ngIf="isValidField('celula')" 
+                           class="form-text text-danger">
+                           {{ getFieldError('celula') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de rol -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Rol</label>
+                <div class="col-sm-9">
+                    <select name="rol" id="rol" formControlName="rol" class="form-control">
+                        <option value="">Selecciona un rol</option>
+                        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.detalle }}</option>
+                    </select>
+                    <span *ngIf="isValidField('rol')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('rol') }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button 
+                        type="button"
+                        class="btn btn-warning" 
+                        [routerLink]="['/postulantes/detalle',postulante?.id]">
+                        Volver
+                    </button>
+                    <button type="submit"
+                            class="btn btn-primary float-end">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
