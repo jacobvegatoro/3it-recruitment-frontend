@@ -40,6 +40,7 @@ export class CrearProcesoComponent implements OnInit {
     this.obtenerRoles();
     this.obtenerClientes();
     this.obtenerCelulas();
+    this.onClienteChanged();
   }
 
   obtenerPostulante():void{
@@ -105,6 +106,13 @@ export class CrearProcesoComponent implements OnInit {
 
   onSave():void{
     console.log("Hola");
+  }
+
+  onClienteChanged():void{
+    this.formProceso.get('cliente')?.valueChanges
+      .subscribe(cells => {
+        console.log({ cells })
+      });
   }
 
 }

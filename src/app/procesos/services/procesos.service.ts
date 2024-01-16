@@ -61,4 +61,16 @@ export class ProcesosService {
   
   }
 
+  obtenerCelulasPorCliente(idCliente:number):Observable<Celula[]>{
+
+    const url = `${this.apiUrl}/clientes/${idCliente}/celulas`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.get<Celula[]>( url, { headers } );
+  
+  }
+
 }
