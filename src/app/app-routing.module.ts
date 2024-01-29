@@ -23,6 +23,11 @@ const routes: Routes = [
     component: ContactoComponent
   },
   {
+    path:'entrevistas',
+    canActivate: [ isAuthenticatedGuard ],
+    loadChildren: () => import('./entrevistas/entrevistas.module').then(m => m.EntrevistasModule )
+  },
+  {
     path:'postulantes',
     canActivate: [ isAuthenticatedGuard ],
     loadChildren: () => import('./postulantes/postulantes.module').then(m => m.PostulantesModule )

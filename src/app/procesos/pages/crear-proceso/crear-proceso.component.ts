@@ -1,3 +1,4 @@
+import { ProcesoSave } from './../../interfaces/proceso-save.interface';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { Rol } from '../../interfaces/rol.interface';
 import { ProcesosService } from '../../services/procesos.service';
 import { Cliente } from '../../interfaces/cliente.interface';
 import { Celula } from '../../interfaces/celula.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-proceso',
@@ -22,9 +24,10 @@ export class CrearProcesoComponent implements OnInit {
   public celulas:Celula [] = [];
 
   public formProceso:FormGroup = this.fb.group({ 
-    rol: ['', [ Validators.required ]],
-    cliente: ['', [ Validators.required ]],
-    celula: ['', [ Validators.required ]]
+    idPostulante: [this.postulante?.id,[]],
+    idRol: ['', [ Validators.required ]],
+    idCliente: ['', [ Validators.required ]],
+    idCelula: ['', [ Validators.required ]]
   });
 
   constructor(
@@ -39,7 +42,7 @@ export class CrearProcesoComponent implements OnInit {
     this.obtenerPostulante();
     this.obtenerRoles();
     this.obtenerClientes();
-    this.obtenerCelulas();
+    //this.obtenerCelulas();
     this.onClienteChanged();
   }
 
@@ -77,6 +80,16 @@ export class CrearProcesoComponent implements OnInit {
     });
   }
 
+  obtenerCelulasPorCliente(idCliente:number):void{
+    if (idCliente != null && idCliente > 0){
+      this.procesosService.obtenerCelulasPorCliente(idCliente)
+      .subscribe( celulas => {
+        this.celulas = celulas;
+        this.formProceso.controls['idCelula'].setValue('', {onlySelf: true});
+      });
+    }
+  }
+
   isValidField( field:string ): boolean | null {
     return this.formProceso.controls[field].errors 
       && this.formProceso.controls[field].touched;
@@ -105,14 +118,54 @@ export class CrearProcesoComponent implements OnInit {
   } 
 
   onSave():void{
-    console.log("Hola");
+    //console.log("Hola");
+    if ( this.formProceso.invalid ){
+      this.formProceso.markAllAsTouched();
+      return;
+    }  
+
+    console.log(this.currentProceso); 
+
+    this.procesosService.crearProceso( this.currentProceso )
+    .subscribe({
+      next: () => {
+        Swal.fire({  
+          text: "El proceso ha sido creado exitosamente",
+          icon: "success"
+        });
+      },
+      error: () => {
+        Swal.fire('Error', 'Ocurrió un error al crear el proceso', 'error');
+      }
+    });
+
+    this.formProceso.reset();
+    this.formProceso.controls['idCliente'].setValue('', {onlySelf: true});
+    this.formProceso.controls['idCelula'].setValue('', {onlySelf: true});
+    this.formProceso.controls['idRol'].setValue('', {onlySelf: true});
+
   }
 
   onClienteChanged():void{
-    this.formProceso.get('cliente')?.valueChanges
+    this.formProceso.get('idCliente')?.valueChanges
       .subscribe(cells => {
-        console.log({ cells })
+        this.obtenerCelulasPorCliente(cells);
+        console.log({ cells });
       });
+  }
+
+  get currentProceso():ProcesoSave {
+
+    this.formProceso.patchValue({
+      'idPostulante':this.postulante?.id
+    });
+    const proceso:ProcesoSave = {} as ProcesoSave;
+    proceso.idPostulante = this.postulante?.id;
+    proceso.idCelula = this.formProceso.controls['idCelula'].value;
+    proceso.idRol = this.formProceso.controls['idRol'].value;
+
+    return proceso;
+
   }
 
 }

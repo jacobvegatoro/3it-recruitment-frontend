@@ -6,27 +6,30 @@ import { MenuComponent } from './components/menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 
 @NgModule({
   declarations: [
-    InicioComponent,
     AcercaDeComponent,
-    MenuComponent,
+    BusquedaComponent,
     ContactoComponent,
-    BusquedaComponent
+    InicioComponent,
+    LoadingSpinnerComponent,
+    MenuComponent,
   ],
   imports: [
     CommonModule,
     RouterModule
   ],
   exports:[
-    InicioComponent,
     AcercaDeComponent,
-    MenuComponent,
+    BusquedaComponent,
     ContactoComponent,
-    BusquedaComponent
+    InicioComponent,
+    LoadingSpinnerComponent,
+    MenuComponent,
   ]
 })
 export class SharedModule { }

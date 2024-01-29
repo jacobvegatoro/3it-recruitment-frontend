@@ -13,7 +13,9 @@
             placeholder="Buscar por nombre y apellido"></app-busqueda>
       </div>
     </div>
-    
+
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
     <div class="row">
       <div class="col">
         <hr>

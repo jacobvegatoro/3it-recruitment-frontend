@@ -6,13 +6,15 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ProcesosRoutingModule } from './procesos-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListadoProcesosComponent } from './pages/listado-procesos/listado-procesos.component';
 
 
 
 @NgModule({
   declarations: [
     ProcesosLayoutComponent,
-    CrearProcesoComponent
+    CrearProcesoComponent,
+    ListadoProcesosComponent
   ],
   imports: [
     CommonModule,

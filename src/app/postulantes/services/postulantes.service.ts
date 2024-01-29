@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, delay, map, of } from 'rxjs';
 import { Postulante } from '../interfaces/postulante';
 
 @Injectable({
@@ -11,6 +11,14 @@ export class PostulantesService {
   private apiUrl:string = 'http://localhost:5000'
 
   constructor(private http:HttpClient) { }
+
+  private getPostulantesRequest( url: string, headers:HttpHeaders):Observable<Postulante[]>{
+    return this.http.get<Postulante[]>( url, { headers } )
+    .pipe(
+      catchError( () => of([]) ),
+      delay ( 2000 ),
+    );
+  }
 
   obtenerPostulantePorId( id:string ):Observable<Postulante | null>{
     const url = `${ this.apiUrl }/postulantes/${ id }`;
@@ -32,7 +40,10 @@ export class PostulantesService {
     const headers = new HttpHeaders()
       .set('Authorization',`Bearer ${ token }`);
       
-    return this.http.get<Postulante[]>( url, { headers } );
+    //return this.http.get<Postulante[]>( url, { headers } );
+
+    return this.getPostulantesRequest(url, headers);
+
   }
 
   buscarPostulantePorNombre( nombre:string ):Observable<Postulante[]>{
@@ -42,7 +53,10 @@ export class PostulantesService {
     const headers = new HttpHeaders()
       .set('Authorization',`Bearer ${ token }`);
 
-    return this.http.get<Postulante[]>( url, { headers } );
+    //return this.http.get<Postulante[]>( url, { headers } );
+
+    return this.getPostulantesRequest(url, headers);
+
   }
 
   crearPostulante(postulante:Postulante):Observable<Postulante>{

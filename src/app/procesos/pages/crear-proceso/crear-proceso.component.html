@@ -18,13 +18,13 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Cliente</label>
                 <div class="col-sm-9">
-                    <select name="cliente" id="cliente" formControlName="cliente" class="form-control">
+                    <select name="cliente" id="cliente" formControlName="idCliente" class="form-control">
                         <option value="">Selecciona un cliente</option>
                         <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }}</option>
                     </select>
-                    <span *ngIf="isValidField('cliente')" 
+                    <span *ngIf="isValidField('idCliente')" 
                         class="form-text text-danger">
-                        {{ getFieldError('cliente') }}
+                        {{ getFieldError('idCliente') }}
                     </span>
                 </div>
             </div>
@@ -33,13 +33,13 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Célula</label>
                 <div class="col-sm-9">
-                    <select name="celula" id="celula" formControlName="celula" class="form-control">
+                    <select name="celula" id="celula" formControlName="idCelula" class="form-control">
                         <option value="">Selecciona una célula</option>
                         <option *ngFor="let celula of celulas" [value]="celula.id">{{ celula.nombre }}</option>
                     </select>
-                    <span *ngIf="isValidField('celula')" 
+                    <span *ngIf="isValidField('idCelula')" 
                            class="form-text text-danger">
-                           {{ getFieldError('celula') }}
+                           {{ getFieldError('idCelula') }}
                     </span>
                 </div>
             </div>
@@ -48,13 +48,13 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Rol</label>
                 <div class="col-sm-9">
-                    <select name="rol" id="rol" formControlName="rol" class="form-control">
+                    <select name="rol" id="rol" formControlName="idRol" class="form-control">
                         <option value="">Selecciona un rol</option>
                         <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.detalle }}</option>
                     </select>
-                    <span *ngIf="isValidField('rol')" 
+                    <span *ngIf="isValidField('idRol')" 
                         class="form-text text-danger">
-                        {{ getFieldError('rol') }}
+                        {{ getFieldError('idRol') }}
                     </span>
                 </div>
             </div>
@@ -74,11 +74,6 @@
                 </div>
             </div>
 
-
-
         </form>
-        <div>
-            {{ formProceso.value | json }}
-        </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ import { Proceso } from '../interfaces/proceso.interface';
 import { Rol } from '../interfaces/rol.interface';
 import { Cliente } from '../interfaces/cliente.interface';
 import { Celula } from '../interfaces/celula.interface';
+import { ProcesoSave } from '../interfaces/proceso-save.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,16 @@ export class ProcesosService {
 
     return this.http.get<Celula[]>( url, { headers } );
   
+  }
+
+  crearProceso(proceso:ProcesoSave):Observable<Proceso>{
+    const url = `${this.apiUrl}/procesos`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.post<Proceso>(url, proceso, { headers });
   }
 
 }
