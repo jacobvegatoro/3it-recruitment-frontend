@@ -66,6 +66,9 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('token');
+    if (localStorage.getItem('cacheStore')){
+      localStorage.removeItem('cacheStore');
+    }
     this._currentUser.set (null);
     this._authStatus.set( AuthStatus.notAuthenticated );
   }

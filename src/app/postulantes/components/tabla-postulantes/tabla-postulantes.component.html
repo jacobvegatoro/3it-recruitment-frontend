@@ -17,9 +17,9 @@
         <tbody>
             <tr *ngFor="let postulante of postulantes | paginate : pagingConfig; let i = index">
                 <td>{{ postulante.id }}</td>
-                <td>{{ postulante.nombres }}</td>
-                <td>{{ postulante.apellidos }}</td>
-                <td>{{ postulante.ciudad }}</td>
+                <td>{{ postulante.nombres | titlecase }}</td>
+                <td>{{ postulante.apellidos | titlecase }}</td>
+                <td>{{ postulante.ciudad | titlecase }}</td>
                 <td>
                     <a href="{{ postulante.enlaceBizneo }}" target="_blank">
                         <i class="bi bi-search text-primary" title="Ir a Bizneo"></i>

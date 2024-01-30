@@ -12,6 +12,7 @@ export class ListadoPostulantesComponent implements OnInit {
 
   public postulantes:Postulante [] = [];
   public isLoading: boolean = false;
+  public initialValue:string = '';
 
   private authService = inject( AuthService );
 
@@ -36,12 +37,22 @@ export class ListadoPostulantesComponent implements OnInit {
   }*/
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.postulantesService.obtenerPostulantes()
-    .subscribe( postulantes => {
-      this.postulantes = postulantes;
-      this.isLoading = false;
-    });
+
+    if (!localStorage.getItem('cacheStore')){
+      console.log('Obtengo todos los postulantes');
+      this.isLoading = true;
+      this.postulantesService.obtenerPostulantes()
+      .subscribe( postulantes => {
+        this.postulantes = postulantes;
+        this.isLoading = false;
+      });
+    }
+    else{
+      this.postulantesService.loadFromLocalStorage();
+    }
+
+    this.postulantes = this.postulantesService.cacheStore.listadoPostulantes.postulantes;
+    this.initialValue = this.postulantesService.cacheStore.listadoPostulantes.term;
   }
 
 }

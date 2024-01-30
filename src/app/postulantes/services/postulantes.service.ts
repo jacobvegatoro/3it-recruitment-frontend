@@ -1,22 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, delay, map, of } from 'rxjs';
+import { Observable, catchError, delay, map, of, tap } from 'rxjs';
 import { Postulante } from '../interfaces/postulante';
+import { environment } from 'src/environments/environments';
+import { CacheStore } from '../interfaces/cache-store.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostulantesService {
 
-  private apiUrl:string = 'http://localhost:5000'
+  //private apiUrl:string = 'http://localhost:5000' 
+  private readonly apiUrl:string = environment.baseUrl;
+  private http = inject( HttpClient );
 
-  constructor(private http:HttpClient) { }
+  public cacheStore:CacheStore = {
+    listadoPostulantes: { term: '', postulantes: [] }
+  }
+
+  saveToLocalStorage(){
+    localStorage.setItem( 'cacheStore', JSON.stringify (this.cacheStore) );
+  }
+
+  loadFromLocalStorage(){
+    if (!localStorage.getItem('cacheStore') ) return;
+
+    this.cacheStore = JSON.parse( localStorage.getItem('cacheStore')! );
+  }
+
+  //constructor(private http:HttpClient) { }
 
   private getPostulantesRequest( url: string, headers:HttpHeaders):Observable<Postulante[]>{
     return this.http.get<Postulante[]>( url, { headers } )
     .pipe(
       catchError( () => of([]) ),
-      delay ( 2000 ),
+      //delay ( 2000 ),
     );
   }
 
@@ -42,7 +60,11 @@ export class PostulantesService {
       
     //return this.http.get<Postulante[]>( url, { headers } );
 
-    return this.getPostulantesRequest(url, headers);
+    return this.getPostulantesRequest(url, headers)
+    .pipe(
+      tap( postulantes => this.cacheStore.listadoPostulantes = { 'term' : '', 'postulantes' : postulantes } ),
+      tap( () => this.saveToLocalStorage() )
+    );
 
   }
 
@@ -55,8 +77,11 @@ export class PostulantesService {
 
     //return this.http.get<Postulante[]>( url, { headers } );
 
-    return this.getPostulantesRequest(url, headers);
-
+    return this.getPostulantesRequest(url, headers)
+      .pipe(
+        tap( postulantes => this.cacheStore.listadoPostulantes = { 'term' : nombre, 'postulantes' : postulantes } ),
+        tap( () => this.saveToLocalStorage() )
+      );
   }
 
   crearPostulante(postulante:Postulante):Observable<Postulante>{
