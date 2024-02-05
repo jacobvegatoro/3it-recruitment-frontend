@@ -1,1 +1,92 @@
-<p>crear-entrevista works!</p>
+<h2>Procesos - Crear entrevista</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="formEntrevista" (ngSubmit)="onSave()" autocomplete="off">
+
+            <!-- Campo de nombre -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-9">
+
+                    <input type="text"
+                           class="form-control"
+                           formControlName="nombres"
+                           placeholder="Nombre del postulante">
+
+                    <span *ngIf="isValidField('nombres')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('nombres') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de apellido -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Apellido</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="apellidos"
+                           placeholder="Apellido del postulante">
+                    <span *ngIf="isValidField('apellidos')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('apellidos') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de ciudad -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Ciudad</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="ciudad"
+                           placeholder="Ciudad del postulante">
+
+                    <span *ngIf="isValidField('ciudad')" 
+                           class="form-text text-danger">
+                           {{ getFieldError('ciudad') }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de enlace a Bizneo -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Enlace a Bizneo</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="enlaceBizneo"
+                           placeholder="Enlace a Bizneo">
+                    <span *ngIf="isValidField('enlaceBizneo')" 
+                        class="form-text text-danger">
+                        {{ getFieldError('enlaceBizneo') }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button 
+                        type="button"
+                        class="btn btn-warning" 
+                        [routerLink]="['/postulantes/detalle/']">
+                        Volver
+                    </button>
+                    <button type="submit"
+                            class="btn btn-primary float-end">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CrearEntrevistaComponent } from './pages/crear-entrevista/crear-entrevista.component';
 import { EntrevistasRoutingModule } from './entrevistas-routing.module';
 import { ListadoEntrevistasComponent } from './pages/listado-entrevistas/listado-entrevistas.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { ListadoEntrevistasComponent } from './pages/listado-entrevistas/listado
     CommonModule,
     SharedModule,
     RouterModule,
-    EntrevistasRoutingModule
+    EntrevistasRoutingModule, 
+    ReactiveFormsModule
   ]
 })
 export class EntrevistasModule { }
