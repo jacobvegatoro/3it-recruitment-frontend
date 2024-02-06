@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { Proceso } from '../interfaces/proceso.interface';
 import { Rol } from '../interfaces/rol.interface';
@@ -24,6 +24,19 @@ export class ProcesosService {
       .set('Authorization',`Bearer ${ token }`);
       
     return this.http.get<Proceso[]>( url, { headers } );
+  }
+
+  obtenerProcesoPorId( id:number ):Observable<Proceso | null>{
+    const url = `${ this.apiUrl }/procesos/${ id }`;
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.get<Proceso[]>( url, {headers} )
+      .pipe(
+        map( procesos => procesos.length > 0 ? procesos[0]: null),
+        catchError( () => of(null) )
+      );
   }
 
   obtenerRoles():Observable<Rol[]>{

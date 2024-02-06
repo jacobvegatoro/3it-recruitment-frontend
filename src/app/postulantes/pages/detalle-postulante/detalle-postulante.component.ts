@@ -28,7 +28,7 @@ export class DetallePostulanteComponent implements OnInit {
     this.procesosService.obtenerProcesosPorPostulante(idPostulante)
       .subscribe({
         next: (result) => {
-          console.log(result);
+//          console.log(result);
           this.procesos = result;
         },
         error: () => {
