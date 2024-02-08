@@ -1,0 +1,60 @@
+:root {
+  --black01: #000000;
+  --black02: #414141;
+  --white01: #FFFFFF;
+  --white02: #F6F6F6;
+  --white03: #e3e1e1;
+  --yellow01: #ECDA29;
+  --yellow02: #F2E98E;
+  --yellow03: #F9F2B4;
+  --yelllow04: #9D911B;
+  --blue01: #F2E98E;
+  --blue02: #8FD7DF;
+  --purple01: #3C3751;
+  --purple02: #5150C0;
+  --purple03: #6765f2;
+  --shadow01: 10px 10px var(--white03);
+  --transition01: 400ms ease;
+}
+
+body {
+  background-color: var(--white02);
+  transition: var(--transition01);
+}
+
+/* Botones */
+
+.btn {
+  background-color: var(--purple02);
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--purple03);
+}
+
+/* Links */
+
+a {
+  color: var(--purple02);
+}
+
+a:hover {
+  color: var(--purple03);
+}
+
+/* Login */
+
+
+.login-box {
+  box-shadow: var(--shadow01);
+  background-color: var(--white01);
+}
+
+.form-label {
+  color: var(--black02);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
