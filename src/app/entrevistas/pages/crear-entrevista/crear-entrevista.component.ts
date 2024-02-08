@@ -1,6 +1,6 @@
 import { ProcesosService } from 'src/app/procesos/services/procesos.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { EntrevistasService } from '../../services/entrevistas.service';
@@ -24,7 +24,10 @@ export class CrearEntrevistaComponent implements OnInit {
     comentariosGenerales: ['', [ Validators.required ] ],
     recomendaciones: ['', [ Validators.required ] ],
     descripcionPersonal: ['', [ Validators.required ] ],
-    preguntasCandidato: ['', [ Validators.required ] ]
+    preguntasCandidato: ['', [ Validators.required ] ],
+    tp1: ['', [  ]],
+    tr1: ['', [  ]],
+    pt1: ['', [  ]]
   });
 
   public accion:string = "";
@@ -92,7 +95,9 @@ export class CrearEntrevistaComponent implements OnInit {
     this.entrevistaActual.idProceso = this.proceso.id;
 
     if (entrevista.fecha_entrevista.length >= 15){
+      console.log(entrevista.fecha_entrevista);
       this.entrevistaActual.fecha_entrevista = entrevista.fecha_entrevista.substring(0,16);
+      console.log(this.entrevistaActual.fecha_entrevista);
     }
     else{
       this.entrevistaActual.fecha_entrevista = entrevista.fecha_entrevista;
@@ -135,6 +140,18 @@ export class CrearEntrevistaComponent implements OnInit {
     return null;
   }
 
+  prepararAlmacenamiento():void{
+    this.entrevistaActual.id = this.idEntrevista;
+    this.entrevistaActual.fecha_entrevista = this.formEntrevista.get('fecha_entrevista')?.value;
+    this.entrevistaActual.perfilBuscado = this.formEntrevista.get('perfilBuscado')?.value;
+    this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
+    this.entrevistaActual.comentariosGenerales = this.formEntrevista.get('comentariosGenerales')?.value;
+    this.entrevistaActual.recomendaciones = this.formEntrevista.get('recomendaciones')?.value;
+    this.entrevistaActual.descripcionPersonal = this.formEntrevista.get('descripcionPersonal')?.value;
+    this.entrevistaActual.preguntasCandidato = this.formEntrevista.get('preguntasCandidato')?.value;
+    this.entrevistaActual.idProceso = this.formEntrevista.get('idProceso')?.value;
+  }
+
   onSave():void{
 
     if ( this.formEntrevista.invalid ){
@@ -142,7 +159,8 @@ export class CrearEntrevistaComponent implements OnInit {
       return;
     }
 
-    this.entrevistaActual = this.formEntrevista.value as EntrevistaSave;
+    //this.entrevistaActual = this.formEntrevista.value as EntrevistaSave;
+    this.prepararAlmacenamiento();
     console.log(this.entrevistaActual);
     console.log(this.idEntrevista);
 
