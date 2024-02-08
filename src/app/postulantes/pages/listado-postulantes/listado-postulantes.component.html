@@ -1,29 +1,32 @@
 
     <h2>Postulantes</h2>
-    <!-- 
+    <!--
     <pre>{{ user() | json }}</pre>
     -->
-    <hr>
-    
     <div class="row">
-      <div class="col">
-          <!-- SearchBox -->
-          <!-- (onValue)="buscarPorNombre($event)" -->
-          <app-busqueda 
-            (onDebounce)="buscarPorNombre($event)" 
-            [initialValue]="initialValue" 
-            placeholder="Buscar por nombre y apellido"></app-busqueda>
-      </div>
+
     </div>
 
     <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
     <div class="row">
-      <div class="col">
-        <hr>
+      <div class="col-9">
+        <!-- SearchBox -->
+        <!-- (onValue)="buscarPorNombre($event)" -->
+        <app-busqueda
+          (onDebounce)="buscarPorNombre($event)"
+          [initialValue]="initialValue"
+          placeholder="Buscar por nombre y apellido"></app-busqueda>
+      </div>
+
+      <div class="col-3">
           <button [routerLink]="['/postulantes/crear']" class="btn btn-success float-end">
             Crear postulante
+            <i class="fas fa-plus"></i>
           </button>
+      </div>
+
+      <div class="col mt-4">
         <app-tabla-postulantes [postulantes]="postulantes"></app-tabla-postulantes>
       </div>
     </div>

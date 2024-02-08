@@ -3,13 +3,13 @@
   --black02: #414141;
   --black03: #6f6f6f;
   --white01: #FFFFFF;
-  --white02: #F6F6F6;
+  --white02: #fbfbfb;
   --white03: #e3e1e1;
   --yellow01: #ECDA29;
   --yellow02: #F2E98E;
   --yellow03: #F9F2B4;
   --yelllow04: #9D911B;
-  --blue01: #F2E98E;
+  --blue01: #3BC0CF;
   --blue02: #8FD7DF;
   --purple01: #3C3751;
   --purple02: #5150C0;
@@ -23,6 +23,7 @@
 body {
   background-color: var(--white02);
   transition: var(--transition01);
+  color: var(--black02);
 }
 
 /* Assetts */
@@ -38,16 +39,28 @@ body {
   background-color: var(--purple02);
   border: none;
   border-radius: 0;
+  padding: 1rem;
+  color: var(--white01);
+}
+
+.btn-success {
+  background-color: var(--purple02);
+  padding: 1rem;
 }
 
 .btn:hover {
   background-color: var(--purple03);
 }
 
+.btn i {
+  margin-left: 10px;
+}
+
 /* Links */
 
 a {
   color: var(--purple02);
+  cursor: pointer;
 }
 
 a:hover {
@@ -58,8 +71,44 @@ nav .ngx-pagination .current {
   background: var(--purple03);
 }
 
-/* Login */
+/* Textos */
 
+.list-group-item,
+table th,
+table td,
+p,
+h2,
+h3,
+h4,
+label,
+.col-form-label,
+span {
+  font-size: 0.9rem;
+  color: var(--black02);
+}
+
+.form-control {
+  background-color: var(--white02);
+  font-size: 0.9rem;
+  padding: 1rem;
+}
+
+.outlet-wrapper h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--purple02);
+  margin-bottom: 2rem;
+}
+.outlet-wrapper h2::after {
+  content: " ";
+  display: block;
+  width: 100%;
+  padding-top: 1rem;
+  border-bottom: 1px solid var(--white03);
+}
+
+
+/* Login */
 
 .login-box {
   box-shadow: var(--shadow01);
@@ -94,6 +143,7 @@ nav .ngx-pagination .current {
 }
 
 .logo-title {
+  color: var(--black01);
   text-transform: uppercase;
   font-size: 1.5rem;
   font-weight: 700;
@@ -106,10 +156,12 @@ nav .ngx-pagination .current {
   letter-spacing: 1px;
   box-sizing: border-box;
   border-radius: 0;
-  font-size: 0.8rem;
+  box-shadow: var(--shadow01);
+  cursor: pointer;
 }
 
 .list-group-item {
+  font-size: 0.8rem;
   border: 0;
   padding: 1rem;
   transition: var(--transition01);
@@ -128,3 +180,30 @@ nav .ngx-pagination .current {
   border-bottom: 1px solid var(--purple02);
 }
 
+/* Contenido */
+
+.outlet-wrapper {
+  border-radius: 0;
+  box-shadow: var(--shadow01)
+}
+
+/* Tablas */
+
+.outlet-wrapper table tr:not(:last-child) {
+  border: 0;
+  border-bottom: 1px solid var(--white03);
+}
+
+.outlet-wrapper table tr:last-child {
+  border: 1px solid var(--white01);
+}
+
+.outlet-wrapper table tbody tr:hover {
+  background-color: var(--white02);
+}
+
+.outlet-wrapper table tr td {
+  font-size: 0.9rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
