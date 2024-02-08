@@ -15,7 +15,7 @@
   --purple02: #5150C0;
   --purple03: #6765f2;
   --purple04: #9694f3;
-  --shadow01: 10px 10px 10px var(--white03);
+  --shadow01: 8px 8px 15px var(--white03);
   --shadow02: 5px 5px var(--purple04);
   --transition01: 400ms ease;
 }
@@ -54,25 +54,16 @@ a:hover {
   color: var(--purple03);
 }
 
+nav .ngx-pagination .current {
+  background: var(--purple03);
+}
+
 /* Login */
 
 
 .login-box {
   box-shadow: var(--shadow01);
   background-color: var(--white01);
-}
-
-.login-box .logo {
-  width: 80px;
-  display: block;
-  margin: auto;
-}
-
-.login-box h2 {
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 2px;
 }
 
 .form-label {
@@ -85,6 +76,55 @@ a:hover {
 .form-control {
   border-radius: 0;
   border: 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--purple02);
   color: var(--black03);
 }
+
+/* Logo Wrapper */
+
+.logo-wrapper {
+  width: 100%;
+
+}
+
+.logo {
+  width: 80px;
+  display: block;
+  margin: auto;
+}
+
+.logo-title {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Menu Lateral */
+
+.list-group {
+  letter-spacing: 1px;
+  box-sizing: border-box;
+  border-radius: 0;
+  font-size: 0.8rem;
+}
+
+.list-group-item {
+  border: 0;
+  padding: 1rem;
+  transition: var(--transition01);
+}
+
+.list-group-item:not(:last-child){
+  border-bottom: 1px solid var(--white02);
+}
+
+.list-group-item:hover {
+  background-color: var(--white03);
+}
+
+.list-group-item.active {
+  background-color: var(--purple02);
+  border-bottom: 1px solid var(--purple02);
+}
+
