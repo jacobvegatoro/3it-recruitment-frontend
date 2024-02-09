@@ -182,23 +182,23 @@ app-menu .list-group {
   cursor: pointer;
 }
 
-.list-group-item {
+app-menu .list-group-item {
   border-color: var(--white02);
   font-size: 0.8rem;
   padding: 1rem;
   transition: var(--transition01);
 }
 
-.list-group-item:not(:last-child){
+app-menu .list-group-item:not(:last-child){
   border-bottom: 1px solid var(--white02);
 }
 
-.list-group-item:hover {
+app-menu .list-group-item:hover {
   border-color: var(--white03);
   background-color: var(--white03);
 }
 
-.list-group-item.active {
+app-menu .list-group-item.active {
   border-color: var(--purple02);
   background-color: var(--purple02);
   border-bottom: 1px solid var(--purple02);
@@ -213,6 +213,7 @@ app-menu .list-group {
 
 
 .outlet-wrapper .list-group-item {
+  border: none;
   padding-left: 0;
 }
 
@@ -227,6 +228,13 @@ app-menu .list-group {
 
 .outlet-wrapper .list-group {
   border-radius: 0;
+}
+
+.outlet-wrapper label {
+  color: var(--purple02);
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
 }
 
 
