@@ -22,7 +22,7 @@
                         <option value="">Selecciona un cliente</option>
                         <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }}</option>
                     </select>
-                    <span *ngIf="isValidField('idCliente')" 
+                    <span *ngIf="isValidField('idCliente')"
                         class="form-text text-danger">
                         {{ getFieldError('idCliente') }}
                     </span>
@@ -37,7 +37,7 @@
                         <option value="">Selecciona una célula</option>
                         <option *ngFor="let celula of celulas" [value]="celula.id">{{ celula.nombre }}</option>
                     </select>
-                    <span *ngIf="isValidField('idCelula')" 
+                    <span *ngIf="isValidField('idCelula')"
                            class="form-text text-danger">
                            {{ getFieldError('idCelula') }}
                     </span>
@@ -52,7 +52,7 @@
                         <option value="">Selecciona un rol</option>
                         <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.detalle }}</option>
                     </select>
-                    <span *ngIf="isValidField('idRol')" 
+                    <span *ngIf="isValidField('idRol')"
                         class="form-text text-danger">
                         {{ getFieldError('idRol') }}
                     </span>
@@ -61,15 +61,16 @@
 
             <div class="row">
                 <div class="col">
-                    <button 
+                    <button
                         type="button"
-                        class="btn btn-warning" 
+                        class="btn btn-warning"
                         [routerLink]="['/postulantes/detalle',postulante?.id]">
                         Volver
                     </button>
                     <button type="submit"
                             class="btn btn-primary float-end">
                         Guardar
+                        <i class="fas fa-save"></i>
                     </button>
                 </div>
             </div>

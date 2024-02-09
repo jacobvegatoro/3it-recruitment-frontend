@@ -12,10 +12,10 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           formControlName="idProceso" 
-                           placeholder="" 
+                           formControlName="idProceso"
+                           placeholder=""
                            readonly>
-                    <span *ngIf="isValidField('idProceso')" 
+                    <span *ngIf="isValidField('idProceso')"
                         class="form-text text-danger">
                         {{ getFieldError('idProceso') }}
                     </span>
@@ -27,12 +27,12 @@
                 <label class="col-sm-3 col-form-label">Fecha entrevista</label>
                 <div class="col-sm-9">
 
-                    <input type="datetime-local" 
-                           class="form-control" 
-                           formControlName="fecha_entrevista" 
+                    <input type="datetime-local"
+                           class="form-control"
+                           formControlName="fecha_entrevista"
                            placeholder="">
 
-                    <span *ngIf="isValidField('fecha_entrevista')" 
+                    <span *ngIf="isValidField('fecha_entrevista')"
                         class="form-text text-danger">
                         {{ getFieldError('fecha_entrevista') }}
                     </span>
@@ -47,11 +47,11 @@
                            class="form-control"
                            formControlName="perfilBuscado"
                            placeholder="">-->
-                    <textarea name="pefilBuscado" 
-                        id="perfilBuscado" 
-                        class="form-control" 
+                    <textarea name="pefilBuscado"
+                        id="perfilBuscado"
+                        class="form-control"
                         formControlName="perfilBuscado"></textarea>
-                    <span *ngIf="isValidField('perfilBuscado')" 
+                    <span *ngIf="isValidField('perfilBuscado')"
                         class="form-text text-danger">
                         {{ getFieldError('perfilBuscado') }}
                     </span>
@@ -62,11 +62,11 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Comentarios prueba</label>
                 <div class="col-sm-9">
-                    <textarea name="comentariosPrueba" 
-                        id="comentariosPrueba" 
-                        class="form-control" 
+                    <textarea name="comentariosPrueba"
+                        id="comentariosPrueba"
+                        class="form-control"
                         formControlName="comentariosPrueba"></textarea>
-                    <span *ngIf="isValidField('comentariosPrueba')" 
+                    <span *ngIf="isValidField('comentariosPrueba')"
                            class="form-text text-danger">
                            {{ getFieldError('comentariosPrueba') }}
                     </span>
@@ -77,11 +77,11 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Comentarios generales</label>
                 <div class="col-sm-9">
-                    <textarea name="comentariosGenerales" 
-                        id="comentariosGenerales" 
-                        class="form-control" 
+                    <textarea name="comentariosGenerales"
+                        id="comentariosGenerales"
+                        class="form-control"
                         formControlName="comentariosGenerales"></textarea>
-                    <span *ngIf="isValidField('comentariosGenerales')" 
+                    <span *ngIf="isValidField('comentariosGenerales')"
                         class="form-text text-danger">
                         {{ getFieldError('comentariosGenerales') }}
                     </span>
@@ -92,11 +92,11 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Recomendaciones</label>
                 <div class="col-sm-9">
-                    <textarea name="recomendaciones" 
-                        id="recomendaciones" 
-                        class="form-control" 
+                    <textarea name="recomendaciones"
+                        id="recomendaciones"
+                        class="form-control"
                         formControlName="recomendaciones"></textarea>
-                    <span *ngIf="isValidField('recomendaciones')" 
+                    <span *ngIf="isValidField('recomendaciones')"
                         class="form-text text-danger">
                         {{ getFieldError('recomendaciones') }}
                     </span>
@@ -107,11 +107,11 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Descripción personal</label>
                 <div class="col-sm-9">
-                    <textarea name="descripcionPersonal" 
-                        id="descripcionPersonal" 
-                        class="form-control" 
+                    <textarea name="descripcionPersonal"
+                        id="descripcionPersonal"
+                        class="form-control"
                         formControlName="descripcionPersonal"></textarea>
-                    <span *ngIf="isValidField('descripcionPersonal')" 
+                    <span *ngIf="isValidField('descripcionPersonal')"
                         class="form-text text-danger">
                         {{ getFieldError('descripcionPersonal') }}
                     </span>
@@ -122,11 +122,11 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Preguntas del candidato</label>
                 <div class="col-sm-9">
-                    <textarea name="preguntasCandidato" 
-                        id="preguntasCandidato" 
-                        class="form-control" 
+                    <textarea name="preguntasCandidato"
+                        id="preguntasCandidato"
+                        class="form-control"
                         formControlName="preguntasCandidato"></textarea>
-                    <span *ngIf="isValidField('preguntasCandidato')" 
+                    <span *ngIf="isValidField('preguntasCandidato')"
                         class="form-text text-danger">
                         {{ getFieldError('preguntasCandidato') }}
                     </span>
@@ -135,15 +135,16 @@
 
             <div class="row">
                 <div class="col">
-                    <button 
+                    <button
                         type="button"
-                        class="btn btn-warning" 
+                        class="btn btn-warning"
                         [routerLink]="['/postulantes/detalle/', idPostulante]">
                         Volver
                     </button>
                     <button type="submit"
                             class="btn btn-primary float-end">
-                        Guardar 
+                        Guardar
+                        <i class="fas fa-save"></i>
                     </button>
                 </div>
             </div>

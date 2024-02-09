@@ -8,7 +8,7 @@
   --yellow01: #ECDA29;
   --yellow02: #F2E98E;
   --yellow03: #F9F2B4;
-  --yelllow04: #9D911B;
+  --yellow04: #9D911B;
   --blue01: #3BC0CF;
   --blue02: #8FD7DF;
   --purple01: #3C3751;
@@ -48,6 +48,15 @@ body {
   padding: 1rem;
 }
 
+.btn-warning {
+  background-color: var(--yellow01);
+}
+
+.btn-warning:hover {
+  color: var(--white01);
+  background-color: var(--yellow02)!important;
+}
+
 .btn:hover {
   background-color: var(--purple03);
 }
@@ -69,6 +78,10 @@ a:hover {
 
 nav .ngx-pagination .current {
   background: var(--purple03);
+}
+
+.current span {
+  color: var(--white01);
 }
 
 /* Textos */
@@ -107,6 +120,10 @@ span {
   border-bottom: 1px solid var(--white03);
 }
 
+h3 {
+  color: var(--purple02);
+  font-weight: 700;
+}
 
 /* Login */
 
@@ -152,7 +169,7 @@ span {
 
 /* Menu Lateral */
 
-.list-group {
+app-menu .list-group {
   letter-spacing: 1px;
   box-sizing: border-box;
   border-radius: 0;
@@ -187,6 +204,25 @@ span {
   box-shadow: var(--shadow01)
 }
 
+
+.outlet-wrapper .list-group-item {
+  padding-left: 0;
+}
+
+.outlet-wrapper .list-group-item:hover {
+  cursor: initial;
+  background-color: var(--white01);
+}
+
+.outlet-wrapper .list-group-item:not(:last-child) {
+  border-bottom: 1px solid var(--white03);
+}
+
+.outlet-wrapper .list-group {
+  border-radius: 0;
+}
+
+
 /* Tablas */
 
 .outlet-wrapper table tr:not(:last-child) {
@@ -206,4 +242,19 @@ span {
   font-size: 0.9rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+/* Cards */
+
+.card {
+  border-radius: 0;
+}
+
+.card-header {
+  border-radius: 0!important;
+  border: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--purple04);
 }
