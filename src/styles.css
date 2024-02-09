@@ -180,8 +180,8 @@ app-menu .list-group {
 }
 
 .list-group-item {
+  border-color: var(--white02);
   font-size: 0.8rem;
-  border: 0;
   padding: 1rem;
   transition: var(--transition01);
 }
@@ -191,10 +191,12 @@ app-menu .list-group {
 }
 
 .list-group-item:hover {
+  border-color: var(--white03);
   background-color: var(--white03);
 }
 
 .list-group-item.active {
+  border-color: var(--purple02);
   background-color: var(--purple02);
   border-bottom: 1px solid var(--purple02);
 }
