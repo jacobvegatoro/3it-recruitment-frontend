@@ -55,8 +55,8 @@
                         </div>
                         <div class="card-body">
                           <h5 class="card-title">{{ proceso.rol.detalle }}</h5>
-                          <p class="card-text">Fecha creación: {{ proceso.fecha_ingreso | date: 'MMM d, y, h:mm:ss a' }}</p>
-                          <a
+                          <p class="card-text">Fecha creación: {{ proceso.fecha_ingreso | date: 'MMMM d, y, h:mm:ss a' }}</p>
+                          <a 
                             class="btn btn-primary"
                             [routerLink]="['/entrevistas/crear', proceso.id]">
                             Ir a entrevista</a>
