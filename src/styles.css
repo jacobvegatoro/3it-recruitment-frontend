@@ -41,6 +41,7 @@ body {
   border-radius: 0;
   padding: 1rem;
   color: var(--white01);
+  font-size: 0.8rem;
 }
 
 .btn-success {
@@ -62,7 +63,7 @@ body {
 }
 
 .btn i {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 /* Links */
@@ -122,6 +123,7 @@ span {
 
 h3 {
   color: var(--purple02);
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -252,9 +254,7 @@ app-menu .list-group {
 
 .card-header {
   border-radius: 0!important;
-  border: 0;
+  background-color: var(--white02);
   font-size: 0.8rem;
   font-weight: 700;
-  color: white;
-  background-color: var(--purple04);
 }
