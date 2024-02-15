@@ -1,1 +1,19 @@
 <p>listado-procesos works!</p>
+
+<table>
+  <div *ngFor="let proceso of procesos">
+    <p>
+      {{proceso.fecha_ingreso | date}}
+      {{proceso.celula.cliente.nombre}}
+      {{proceso.celula.cliente.id}}
+      {{proceso.celula.cliente.casaMatriz}}
+      {{proceso.celula.nombre}}
+      {{proceso.celula.id}}
+      {{proceso.id}}
+      {{proceso.postulante.nombres}}
+      {{proceso.postulante.apellidos}}
+      {{proceso.postulante.enlaceBizneo}}
+      {{proceso.rol}}
+    </p>
+  </div>
+</table>

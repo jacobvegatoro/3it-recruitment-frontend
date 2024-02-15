@@ -15,6 +15,13 @@ export class ProcesosService {
 
   private readonly apiUrl:string = environment.baseUrl;
   private http = inject( HttpClient );
+  private token = localStorage.getItem('token');
+  private headers = new HttpHeaders().set('Authorization',`Bearer ${ this.token }`);
+
+  obtenerProcesos():Observable<Proceso[]> {
+    const url = `${this.apiUrl}/procesos`
+    return this.http.get<Proceso[]>(url, {headers: this.headers})
+  }
 
   obtenerProcesosPorPostulante(idPostulante:number):Observable<Proceso[]>{
     const url = `${this.apiUrl}/procesos/postulante/${idPostulante}`;
@@ -22,13 +29,13 @@ export class ProcesosService {
 
     const headers = new HttpHeaders()
       .set('Authorization',`Bearer ${ token }`);
-      
+
     return this.http.get<Proceso[]>( url, { headers } );
   }
 
   obtenerProcesoPorId( id:number ):Observable<Proceso | null>{
     const url = `${ this.apiUrl }/procesos/${ id }`;
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders()
       .set('Authorization',`Bearer ${ token }`);
 
@@ -48,7 +55,7 @@ export class ProcesosService {
       .set('Authorization',`Bearer ${ token }`);
 
     return this.http.get<Rol[]>( url, { headers } );
-    
+
   }
 
   obtenerClientes():Observable<Cliente[]>{
@@ -60,7 +67,7 @@ export class ProcesosService {
       .set('Authorization',`Bearer ${ token }`);
 
     return this.http.get<Cliente[]>( url, { headers } );
-    
+
   }
 
   obtenerCelulas():Observable<Celula[]>{
@@ -72,7 +79,7 @@ export class ProcesosService {
       .set('Authorization',`Bearer ${ token }`);
 
     return this.http.get<Celula[]>( url, { headers } );
-  
+
   }
 
   obtenerCelulasPorCliente(idCliente:number):Observable<Celula[]>{
@@ -84,7 +91,7 @@ export class ProcesosService {
       .set('Authorization',`Bearer ${ token }`);
 
     return this.http.get<Celula[]>( url, { headers } );
-  
+
   }
 
   crearProceso(proceso:ProcesoSave):Observable<Proceso>{
