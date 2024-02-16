@@ -11,6 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import localeEsCL from '@angular/common/locales/es-CL'
 
 import { registerLocaleData } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData( localeEsCL );
 
@@ -23,7 +24,8 @@ registerLocaleData( localeEsCL );
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

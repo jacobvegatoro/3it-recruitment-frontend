@@ -29,7 +29,7 @@ export class TablaPostulantesComponent implements PagingConfig {
       itemsPerPage: this.itemsPerPage,
       currentPage: this.currentPage,
       totalItems: this.totalItems
-    }    
+    }
   }
 
   onDeletePostulante(id:number):void{
@@ -60,7 +60,7 @@ export class TablaPostulantesComponent implements PagingConfig {
           error: () => {
             Swal.fire('Error', 'Ocurrió un error al eliminar el postulante', 'error');
           }
-        });    
+        });
       }
 
     });

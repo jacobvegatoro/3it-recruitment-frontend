@@ -1,1 +1,43 @@
-<p>listado-procesos works!</p>
+<h2 class="main-title">Procesos</h2>
+
+
+
+<div>
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" >
+
+    <ng-container matColumnDef="fecha_ingreso">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por fecha">
+        Fecha
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_ingreso | date }} </td>
+    </ng-container>
+    <!-- matColumnDef debe calzar con el nombre de la propiedad o el sorting no funciona, eso se soluciona con el sortingDataAccesor -->
+    <ng-container matColumnDef="postulante">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por nombre">
+        Nombre
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.postulante.nombres + " " +element.postulante.apellidos}}</td>
+    </ng-container>
+    <ng-container matColumnDef="celula">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por célula">
+        Célula
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.celula.nombre}} </td>
+    </ng-container>
+    <ng-container matColumnDef="rol">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por rol">
+        Rol
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.rol.detalle}} </td>
+    </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+  <mat-paginator [pageSizeOptions]="[10, 20]"
+                 showFirstLastButtons
+                 aria-label="Seleccionar página">
+  </mat-paginator>
+</div>
