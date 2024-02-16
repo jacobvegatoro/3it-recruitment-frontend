@@ -79,6 +79,10 @@ a:hover {
   color: var(--purple03);
 }
 
+nav .ngx-pagination a {
+  text-decoration: none;
+}
+
 nav .ngx-pagination .current {
   background: var(--purple03);
 }

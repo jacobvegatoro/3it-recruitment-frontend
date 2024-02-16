@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Proceso } from '../../interfaces/proceso.interface';
 import { ProcesosService } from '../../services/procesos.service';
 import { Celula } from '../../interfaces/celula.interface';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,34 +17,56 @@ export class ListadoProcesosComponent implements OnInit {
   public celulas:Celula [] = [];
   public isLoading: boolean = false;
   public initialValue:string = '';
-  public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  public dataSource = new MatTableDataSource(ELEMENT_DATA);
-  @ViewChild(MatSort) sort: MatSort;
+  public dataSource = new MatTableDataSource();
+  public displayedColumns: string[] = ['fecha_ingreso', 'postulante', 'celula', 'rol'];
   private procesosService = inject( ProcesosService );
+  private _liveAnnouncer = inject(LiveAnnouncer);
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit(): void {
-
-
     this.procesosService.obtenerProcesos()
     .subscribe(procesos => {
-      this.procesos = procesos,
+      this.dataSource.data = procesos
+
+      // Soluciona el sorting para los elementos nested del objeto
+      this.dataSource.sortingDataAccessor = (object:any, property) => {
+        switch (property) {
+          case "postulante":
+            return object.postulante.nombres;
+          case "celula":
+            return object.celula.nombre;
+          case "rol":
+            return object.rol.detalle;
+          default:
+            return object[property];
+        }
+      }
+
       this.isLoading = false;
+      this.dataSource.paginator = this.paginator;
+      this.sort.sort(({ id: 'fecha_ingreso', start: 'desc'}) as MatSortable);
+      this.dataSource.sort = this.sort;
+
+      // Traducciones
+
+      this.paginator._intl.itemsPerPageLabel="Items por página";
+      this.paginator._intl.getRangeLabel = (page,pageSize,length)=>{
+        if (length == 0 || pageSize == 0) {
+            return `0 of ${length}`;
+        }
+        length = Math.max(length, 0);
+        const startIndex = page * pageSize;
+        // If the start index exceeds the list length, do not try and fix the end index to the end.
+        const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+        return `${startIndex + 1} – ${endIndex} de ${length}`;
+    }
+
+
+      console.log(this.paginator._intl.getRangeLabel)
     })
-
-
   }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    console.log(this.dataSource)
-  }
-
-
 
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
@@ -58,26 +80,4 @@ export class ListadoProcesosComponent implements OnInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
-
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
