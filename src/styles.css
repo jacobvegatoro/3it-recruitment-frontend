@@ -1,3 +1,5 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 :root {
   --black01: #000000;
   --black02: #414141;
@@ -271,3 +273,6 @@ app-menu .list-group-item.active {
   font-size: 0.8rem;
   font-weight: 700;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
