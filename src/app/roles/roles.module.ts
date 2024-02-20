@@ -3,7 +3,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { MantenedorRolesComponent } from "./components/mantenedor-roles.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 
 
@@ -16,7 +16,8 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     MantenedorRolesComponent

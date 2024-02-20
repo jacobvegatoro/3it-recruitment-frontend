@@ -3,6 +3,7 @@ import { MantenedorRolesService } from '../services/mantenedor-roles.service';
 import { Rol } from '../interfaces/rol.interface';
 import { MatSelectChange } from '@angular/material/select';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mantenedor-roles',
@@ -17,6 +18,12 @@ export class MantenedorRolesComponent implements OnInit{
     id: 0,
     detalle: ""
   };
+  constructor ( private fb:FormBuilder){}
+
+  public myForm:FormGroup = this.fb.group({
+    cargo: ['', [ Validators.required, Validators.minLength(2) ]]
+  });
+
   ngOnInit(): void {
     this.obtenerRoles();
   }
@@ -34,6 +41,11 @@ export class MantenedorRolesComponent implements OnInit{
     })
   }
   nuevoRol() {
+    this.selectedData.detalle = this.myForm.controls['cargo'].value;
+    if (this.myForm.invalid) {
+      Swal.fire('Error', 'Debes ingresar un rol correctamente', 'error');
+      return
+    }
     this.mantenedorService.crearRol(this.selectedData)
     .subscribe({
       next: () => {
@@ -41,16 +53,21 @@ export class MantenedorRolesComponent implements OnInit{
           text: "El rol ha sido creado exitosamente",
           icon: "success"
         });
+        this.obtenerRoles();
       },
       error: () => {
         Swal.fire('Error', 'Ocurrió un error al crear el rol', 'error');
       }
     });
-    this.obtenerRoles();
   }
 
   onSave():void{
-    console.log(this.selectedData)
+    this.selectedData.detalle = this.myForm.controls['cargo'].value;
+    console.log(this.selectedData.detalle)
+    if (this.myForm.invalid) {
+      Swal.fire('Error', 'Ocurrió un error al editar el rol', 'error');
+      return
+    }
     this.mantenedorService.editarRol(this.selectedData)
     .subscribe({
       next: () => {
@@ -58,11 +75,11 @@ export class MantenedorRolesComponent implements OnInit{
           text: "El rol ha sido editado exitosamente",
           icon: "success"
         });
+        this.obtenerRoles();
       },
       error: () => {
         Swal.fire('Error', 'Ocurrió un error al editar el rol', 'error');
       }
     });
-    this.obtenerRoles();
   }
 }

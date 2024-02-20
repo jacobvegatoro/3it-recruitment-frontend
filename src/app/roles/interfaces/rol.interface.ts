@@ -1,5 +1,5 @@
 
 export interface Rol {
     id:      number;
-    detalle: string;
+    detalle: string | any;
 }
