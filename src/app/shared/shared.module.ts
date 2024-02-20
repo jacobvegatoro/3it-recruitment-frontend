@@ -7,7 +7,7 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { PanelDeAdministracionComponent } from './pages/panel-de-administracion/panel-de-administracion.component';
-import { MantenedorRolesComponent } from '../roles/components/mantenedor-roles.component';
+import { RolesModule } from '../roles/roles.module';
 
 
 
@@ -18,12 +18,12 @@ import { MantenedorRolesComponent } from '../roles/components/mantenedor-roles.c
     InicioComponent,
     LoadingSpinnerComponent,
     MenuComponent,
-    PanelDeAdministracionComponent,
-    MantenedorRolesComponent
+    PanelDeAdministracionComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    RolesModule
   ],
   exports:[
     BusquedaComponent,
@@ -32,7 +32,6 @@ import { MantenedorRolesComponent } from '../roles/components/mantenedor-roles.c
     LoadingSpinnerComponent,
     MenuComponent,
     PanelDeAdministracionComponent,
-    MantenedorRolesComponent
   ]
 })
 export class SharedModule { }
