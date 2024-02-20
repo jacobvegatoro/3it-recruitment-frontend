@@ -4,7 +4,7 @@
 <form (ngSubmit)="onSave()" [formGroup]="myForm">
   <mat-form-field class="me-2">
     <mat-label>Seleccionar Rol</mat-label>
-    <mat-select (selectionChange)="selectedValue($event)" [(value)]="selectedRol">
+    <mat-select (selectionChange)="selectedValue($event); changeValue()" [(value)]="selectedRol">
       <mat-option *ngFor="let rol of roles" [value]="rol.id">{{rol.detalle}}</mat-option>
     </mat-select>
   </mat-form-field>

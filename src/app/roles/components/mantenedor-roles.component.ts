@@ -40,7 +40,11 @@ export class MantenedorRolesComponent implements OnInit{
       this.roles = rol
     })
   }
+  changeValue() {
+    this.myForm.controls['cargo'].setValue(this.selectedData.detalle)
+  }
   nuevoRol() {
+    this.selectedData.id = 0;
     this.selectedData.detalle = this.myForm.controls['cargo'].value;
     if (this.myForm.invalid) {
       Swal.fire('Error', 'Debes ingresar un rol correctamente', 'error');
@@ -63,7 +67,6 @@ export class MantenedorRolesComponent implements OnInit{
 
   onSave():void{
     this.selectedData.detalle = this.myForm.controls['cargo'].value;
-    console.log(this.selectedData.detalle)
     if (this.myForm.invalid) {
       Swal.fire('Error', 'Ocurrió un error al editar el rol', 'error');
       return
