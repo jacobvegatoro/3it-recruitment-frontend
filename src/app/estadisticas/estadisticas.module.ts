@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { EntrevistasEstadisticasComponent } from "./components/entrevistas/entrevistas.component";
 import { ProcesosEstadisticasComponent } from "./components/procesos/procesos.component";
 import { NgChartsModule } from 'ng2-charts';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -11,7 +14,9 @@ import { NgChartsModule } from 'ng2-charts';
   ],
   imports: [
     CommonModule,
-    NgChartsModule
+    NgChartsModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [
     EntrevistasEstadisticasComponent,

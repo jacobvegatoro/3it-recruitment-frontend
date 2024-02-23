@@ -27,7 +27,7 @@ public lineChartData: ChartConfiguration<'line'>['data'] = {
   ]
 };
 public lineChartOptions: ChartOptions<'line'> = {
-  responsive: false
+  responsive: true
 };
 public lineChartLegend = false;
 
