@@ -7,11 +7,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-//Configuracion del locale de la app 
+//Configuracion del locale de la app
 import localeEsCL from '@angular/common/locales/es-CL'
 
 import { registerLocaleData } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
 
 registerLocaleData( localeEsCL );
 
@@ -25,7 +26,8 @@ registerLocaleData( localeEsCL );
     HttpClientModule,
     SharedModule,
     NgxPaginationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgChartsModule
   ],
   providers: [
     {

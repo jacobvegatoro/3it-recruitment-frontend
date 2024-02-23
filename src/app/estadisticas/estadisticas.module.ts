@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { EntrevistasEstadisticasComponent } from "./components/entrevistas/entrevistas.component";
 import { ProcesosEstadisticasComponent } from "./components/procesos/procesos.component";
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { ProcesosEstadisticasComponent } from "./components/procesos/procesos.co
     ProcesosEstadisticasComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgChartsModule
   ],
   exports: [
     EntrevistasEstadisticasComponent,
