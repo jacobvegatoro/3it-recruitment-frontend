@@ -8,6 +8,7 @@ import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { PanelDeAdministracionComponent } from './pages/panel-de-administracion/panel-de-administracion.component';
 import { RolesModule } from '../roles/roles.module';
+import { EstadisticasModule } from '../estadisticas/estadisticas.module';
 
 
 
@@ -23,7 +24,8 @@ import { RolesModule } from '../roles/roles.module';
   imports: [
     CommonModule,
     RouterModule,
-    RolesModule
+    RolesModule,
+    EstadisticasModule
   ],
   exports:[
     BusquedaComponent,
