@@ -26,13 +26,13 @@ export class LoginPageComponent {
 
     this.authService.login (login, password)
       .subscribe ({
-        next: () => this.router.navigateByUrl('/postulantes/listado'),
+        next: () => this.router.navigateByUrl('/inicio'),
         error: (message) => {
           //console.log({ loginError: error });
           Swal.fire('Error', message, 'error');
         }
       })
-    //console.log( this.myForm.value );    
+    //console.log( this.myForm.value );
   }
 
 }
