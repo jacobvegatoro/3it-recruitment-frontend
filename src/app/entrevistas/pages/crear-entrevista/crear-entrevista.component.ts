@@ -10,6 +10,7 @@ import { Proceso } from 'src/app/procesos/interfaces/proceso.interface';
 import Swal from 'sweetalert2';
 import { Pregunta } from '../../interfaces/pregunta.interface';
 import { EntrevistaForm } from '../../interfaces/entrevista-form.interface';
+import { RespuestaExistente } from '../../interfaces/respuesta-existente.interface';
 
 @Component({
   selector: 'app-crear-entrevista',
@@ -98,6 +99,7 @@ export class CrearEntrevistaComponent implements OnInit {
   public idEntrevista:number = 0;
   public entrevistaActual:EntrevistaSave = {} as EntrevistaSave;
   public respuestasNuevas:RespuestaNueva [] = [];
+  public respuestasExistentes:RespuestaExistente [] = [];
 
   constructor (
     private fb:FormBuilder,
@@ -108,8 +110,13 @@ export class CrearEntrevistaComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
+    this.definirIdEntrevista();
     this.obtenerProceso();
     this.obtenerEntrevistas();
+  }
+
+  definirIdEntrevista():void {
+    localStorage.setItem('idEntrevista','0');
   }
 
   obtenerProceso():void{
@@ -202,24 +209,110 @@ export class CrearEntrevistaComponent implements OnInit {
     //console.log(entrevista);
     //this.entrevistaActual.id = entrevista.id;
     //this.idEntrevista = entrevista.id;
-    this.entrevistaActual.idProceso = this.proceso.id;
+    localStorage.setItem('idEntrevista',entrevista.id.toString());
+
+    let formulario:EntrevistaForm = {} as EntrevistaForm;
+
+    formulario.idProceso = this.proceso.id;
 
     if (entrevista.fecha_entrevista.length >= 15){
       console.log(entrevista.fecha_entrevista);
-      this.entrevistaActual.fecha_entrevista = entrevista.fecha_entrevista.substring(0,16);
-      console.log(this.entrevistaActual.fecha_entrevista);
+      formulario.fecha_entrevista = entrevista.fecha_entrevista.substring(0,16);
+      console.log(formulario.fecha_entrevista);
     }
     else{
-      this.entrevistaActual.fecha_entrevista = entrevista.fecha_entrevista;
+      formulario.fecha_entrevista = entrevista.fecha_entrevista;
     }
 
-    this.entrevistaActual.perfilBuscado = entrevista.perfilBuscado;
-    this.entrevistaActual.comentariosPrueba = entrevista.comentariosPrueba;
-    this.entrevistaActual.comentariosGenerales = entrevista.comentariosGenerales;
-    this.entrevistaActual.recomendaciones = entrevista.recomendaciones;
-    this.entrevistaActual.descripcionPersonal = entrevista.descripcionPersonal;
-    this.entrevistaActual.preguntasCandidato = entrevista.preguntasCandidato;
-    this.formEntrevista.reset(this.entrevistaActual);
+    formulario.perfilBuscado = entrevista.perfilBuscado;
+    formulario.comentariosPrueba = entrevista.comentariosPrueba;
+    formulario.comentariosGenerales = entrevista.comentariosGenerales;
+    formulario.recomendaciones = entrevista.recomendaciones;
+    formulario.descripcionPersonal = entrevista.descripcionPersonal;
+    formulario.preguntasCandidato = entrevista.preguntasCandidato;
+
+    this.entrevistasService.obtenerRespuestasPorEntrevista(entrevista.id)
+    .subscribe( respuestas => {
+      formulario.tp1 = respuestas.at(0) != null ? respuestas.at(0)!.textoPregunta : '';
+      formulario.tr1 = respuestas.at(0) != null ? respuestas.at(0)!.textoRespuesta : '';
+      formulario.pt1 = respuestas.at(0) != null ? respuestas.at(0)!.puntaje : 0;
+      formulario.ip1 = respuestas.at(0) != null ? respuestas.at(0)!.id : 0;
+
+      formulario.tp2 = respuestas.at(1) != null ? respuestas.at(1)!.textoPregunta : '';
+      formulario.tr2 = respuestas.at(1) != null ? respuestas.at(1)!.textoRespuesta : '';
+      formulario.pt2 = respuestas.at(1) != null ? respuestas.at(1)!.puntaje : 0;
+      formulario.ip2 = respuestas.at(1) != null ? respuestas.at(1)!.id : 0;
+
+      formulario.tp3 = respuestas.at(2) != null ? respuestas.at(2)!.textoPregunta : '';
+      formulario.tr3 = respuestas.at(2) != null ? respuestas.at(2)!.textoRespuesta : '';
+      formulario.pt3 = respuestas.at(2) != null ? respuestas.at(2)!.puntaje : 0;
+      formulario.ip3 = respuestas.at(2) != null ? respuestas.at(2)!.id : 0;
+
+      formulario.tp4 = respuestas.at(3) != null ? respuestas.at(3)!.textoPregunta : '';
+      formulario.tr4 = respuestas.at(3) != null ? respuestas.at(3)!.textoRespuesta : '';
+      formulario.pt4 = respuestas.at(3) != null ? respuestas.at(3)!.puntaje : 0;
+      formulario.ip4 = respuestas.at(3) != null ? respuestas.at(3)!.id : 0;
+
+      formulario.tp5 = respuestas.at(4) != null ? respuestas.at(4)!.textoPregunta : '';
+      formulario.tr5 = respuestas.at(4) != null ? respuestas.at(4)!.textoRespuesta : '';
+      formulario.pt5 = respuestas.at(4) != null ? respuestas.at(4)!.puntaje : 0;
+      formulario.ip5 = respuestas.at(4) != null ? respuestas.at(4)!.id : 0;
+
+      formulario.tp6 = respuestas.at(5) != null ? respuestas.at(5)!.textoPregunta : '';
+      formulario.tr6 = respuestas.at(5) != null ? respuestas.at(5)!.textoRespuesta : '';
+      formulario.pt6 = respuestas.at(5) != null ? respuestas.at(5)!.puntaje : 0;
+      formulario.ip6 = respuestas.at(5) != null ? respuestas.at(5)!.id : 0;
+
+      formulario.tp7 = respuestas.at(6) != null ? respuestas.at(6)!.textoPregunta : '';
+      formulario.tr7 = respuestas.at(6) != null ? respuestas.at(6)!.textoRespuesta : '';
+      formulario.pt7 = respuestas.at(6) != null ? respuestas.at(6)!.puntaje : 0;
+      formulario.ip7 = respuestas.at(6) != null ? respuestas.at(6)!.id : 0;
+
+      formulario.tp8 = respuestas.at(7) != null ? respuestas.at(7)!.textoPregunta : '';
+      formulario.tr8 = respuestas.at(7) != null ? respuestas.at(7)!.textoRespuesta : '';
+      formulario.pt8 = respuestas.at(7) != null ? respuestas.at(7)!.puntaje : 0;
+      formulario.ip8 = respuestas.at(7) != null ? respuestas.at(7)!.id : 0;
+
+      formulario.tp9 = respuestas.at(8) != null ? respuestas.at(8)!.textoPregunta : '';
+      formulario.tr9 = respuestas.at(8) != null ? respuestas.at(8)!.textoRespuesta : '';
+      formulario.pt9 = respuestas.at(8) != null ? respuestas.at(8)!.puntaje : 0;
+      formulario.ip9 = respuestas.at(8) != null ? respuestas.at(8)!.id : 0;
+
+      formulario.tp10 = respuestas.at(9) != null ? respuestas.at(9)!.textoPregunta : '';
+      formulario.tr10 = respuestas.at(9) != null ? respuestas.at(9)!.textoRespuesta : '';
+      formulario.pt10 = respuestas.at(9) != null ? respuestas.at(9)!.puntaje : 0;
+      formulario.ip10 = respuestas.at(9) != null ? respuestas.at(9)!.id : 0;
+
+      formulario.tp11 = respuestas.at(10) != null ? respuestas.at(10)!.textoPregunta : '';
+      formulario.tr11 = respuestas.at(10) != null ? respuestas.at(10)!.textoRespuesta : '';
+      formulario.pt11 = respuestas.at(10) != null ? respuestas.at(10)!.puntaje : 0;
+      formulario.ip11 = respuestas.at(10) != null ? respuestas.at(10)!.id : 0;
+
+      formulario.tp12 = respuestas.at(11) != null ? respuestas.at(11)!.textoPregunta : '';
+      formulario.tr12 = respuestas.at(11) != null ? respuestas.at(11)!.textoRespuesta : '';
+      formulario.pt12 = respuestas.at(11) != null ? respuestas.at(11)!.puntaje : 0;
+      formulario.ip12 = respuestas.at(11) != null ? respuestas.at(11)!.id : 0;
+
+      formulario.tp13 = respuestas.at(12) != null ? respuestas.at(12)!.textoPregunta : '';
+      formulario.tr13 = respuestas.at(12) != null ? respuestas.at(12)!.textoRespuesta : '';
+      formulario.pt13 = respuestas.at(12) != null ? respuestas.at(12)!.puntaje : 0;
+      formulario.ip13 = respuestas.at(12) != null ? respuestas.at(12)!.id : 0;
+
+      formulario.tp14 = respuestas.at(13) != null ? respuestas.at(13)!.textoPregunta : '';
+      formulario.tr14 = respuestas.at(13) != null ? respuestas.at(13)!.textoRespuesta : '';
+      formulario.pt14 = respuestas.at(13) != null ? respuestas.at(13)!.puntaje : 0;
+      formulario.ip14 = respuestas.at(13) != null ? respuestas.at(13)!.id : 0;
+
+      formulario.tp15 = respuestas.at(14) != null ? respuestas.at(14)!.textoPregunta : '';
+      formulario.tr15 = respuestas.at(14) != null ? respuestas.at(14)!.textoRespuesta : '';
+      formulario.pt15 = respuestas.at(14) != null ? respuestas.at(14)!.puntaje : 0;
+      formulario.ip15 = respuestas.at(14) != null ? respuestas.at(14)!.id : 0;
+
+      this.formEntrevista.reset(formulario);
+    });
+
+
+    //this.formEntrevista.reset(this.entrevistaActual);
     //this.entrevistaActual.idProceso = 0;    
   }
 
@@ -273,14 +366,19 @@ export class CrearEntrevistaComponent implements OnInit {
     this.entrevistaActual.preguntasCandidato = this.formEntrevista.get('preguntasCandidato')?.value;
 
     console.log(this.entrevistaActual);
-    let context=this;
 
     this.entrevistasService.crearEntrevista( this.entrevistaActual )
     .subscribe({
       next: (entrevistaNueva) => {
-        //console.log(entrevistaNueva);
+        console.log(entrevistaNueva);
+        console.log(entrevistaNueva[0].id);
         //this.idEntrevista = entrevistaNueva.id;
-        context.idEntrevista = entrevistaNueva.id;
+        //context.idEntrevista = entrevistaNueva.id;
+        let id = "" + entrevistaNueva[0].id;
+        localStorage.setItem('idEntrevista',id);
+        console.log("Obtengo ID de creacion");
+        console.log(id);
+        this.agregarRespuestas();
         /*Swal.fire({  
           text: "La entrevista ha sido creada exitosamente",
           icon: "success"
@@ -291,14 +389,20 @@ export class CrearEntrevistaComponent implements OnInit {
       }
     });
 
-    this.agregarRespuestas();
+    //this.agregarRespuestas();
 
     return;
   }
 
   agregarRespuestas():void{
     this.respuestasNuevas = [];
+    //console.log(this.idEntrevista);
+    console.log('Obtengo ID entrevista de Local Storage');
+    console.log(localStorage.getItem('idEntrevista'));
+    this.idEntrevista = Number(localStorage.getItem('idEntrevista'));
     console.log(this.idEntrevista);
+    let idEnt = Number(localStorage.getItem('idEntrevista'));
+    console.log(idEnt);
 
     if (this.formEntrevista.get('tp1')?.value != null && this.formEntrevista.get('tr1')?.value != null){
       let respuesta:RespuestaNueva = {} as RespuestaNueva;
@@ -453,6 +557,21 @@ export class CrearEntrevistaComponent implements OnInit {
     return;    
   }
 
+  editarEntrevista():void{
+
+    this.entrevistaActual.idProceso = this.formEntrevista.get('idProceso')?.value;
+    this.entrevistaActual.fecha_entrevista = this.formEntrevista.get('fecha_entrevista')?.value;
+    this.entrevistaActual.perfilBuscado = this.formEntrevista.get('perfilBuscado')?.value;
+    this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
+    this.entrevistaActual.comentariosGenerales = this.formEntrevista.get('comentariosGenerales')?.value;
+    this.entrevistaActual.recomendaciones = this.formEntrevista.get('recomendaciones')?.value;
+    this.entrevistaActual.descripcionPersonal = this.formEntrevista.get('descripcionPersonal')?.value;
+    this.entrevistaActual.preguntasCandidato = this.formEntrevista.get('preguntasCandidato')?.value;
+
+    console.log(this.entrevistaActual);
+
+  }
+
   onSave():void{
 
     if ( this.formEntrevista.invalid ){
@@ -467,6 +586,10 @@ export class CrearEntrevistaComponent implements OnInit {
 
     if (this.accion == "crear"){
       this.agregarEntrevista();
+      //this.agregarRespuestas();
+      //console.log("Recupero ID de entrevista nueva:");
+      //let context=this;
+      //console.log(context.idEntrevista);
       /*this.entrevistasService.crearEntrevista( this.entrevistaActual )
       .subscribe({
         next: () => {
@@ -483,6 +606,7 @@ export class CrearEntrevistaComponent implements OnInit {
     }
 
     if (this.accion == "editar"){
+      this.editarEntrevista();
       /*this.entrevistasService.editarEntrevista( this.entrevistaActual, this.idEntrevista )
       .subscribe({
         next: () => {
