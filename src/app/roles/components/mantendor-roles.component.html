@@ -1,0 +1,27 @@
+<h3 class="py-3">
+  Editar Roles
+</h3>
+<form (ngSubmit)="onSave()" [formGroup]="myForm">
+  <mat-form-field class="me-2">
+    <mat-label>Seleccionar Rol</mat-label>
+    <mat-select (selectionChange)="selectedValue($event); changeValue()" [(value)]="selectedRol">
+      <mat-option *ngFor="let rol of roles" [value]="rol.id">{{rol.detalle}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- <mat-form-field class="me-2">
+    <mat-label>ID</mat-label>
+    <input matInput placeholder="" [(ngModel)]="selectedData.id" [ngModelOptions]="{standalone: true}">
+  </mat-form-field> -->
+  <mat-form-field>
+    <mat-label>Detalle</mat-label>
+    <input matInput placeholder="" [value]="selectedData.detalle" formControlName="cargo">
+  </mat-form-field>
+  <button type="submit" class="btn btn-primary me-2 float-end">
+    Guardar Cambios
+    <i class="fas fa-save"></i>
+  </button>
+  <button type="button" (click)="nuevoRol()" class="btn btn-warning me-2 float-end">
+    Nuevo Rol
+    <i class="fas fa-plus"></i>
+  </button>
+</form>

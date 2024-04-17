@@ -8,7 +8,6 @@
     <div class="row">
         <div class="col-12">
             <h2>Postulante - Detalle</h2>
-            <hr>
         </div>
     </div>
 
@@ -25,19 +24,20 @@
                             <strong>Ciudad: </strong> {{ postulante.ciudad }}
                         </li>
                         <li class="list-group-item">
-                            <strong>Enlace Bizneo: </strong><a href="{{ postulante.enlaceBizneo }}" target="_blank">Abrir</a> 
+                            <strong>Enlace Bizneo: </strong><a href="{{ postulante.enlaceBizneo }}" target="_blank">Abrir</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col text-center">
-                    <button 
-                        type="button" 
+                <div class="col">
+                    <button
+                        type="button"
                         class="btn btn-success"
                         [routerLink]="['/procesos/crear', postulante.id]"
                         >
                         Crear proceso
+                        <i class="fas fa-plus"></i>
                     </button>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="card-body">
                           <h5 class="card-title">{{ proceso.rol.detalle }}</h5>
-                          <p class="card-text">Fecha creación: {{ proceso.fecha_ingreso | date: 'MMM d, y, h:mm:ss a' }}</p>
+                          <p class="card-text">Fecha creación: {{ proceso.fecha_ingreso | date: 'MMMM d, y, h:mm:ss a' }}</p>
                           <a 
                             class="btn btn-primary"
                             [routerLink]="['/entrevistas/crear', proceso.id]">
@@ -70,11 +70,11 @@
 
 </div>
 
-<div class="row mt-4 text-center">
+<div class="row mt-4">
     <div class="col">
-        <button 
+        <button
             type="button"
-            class="btn btn-warning" 
+            class="btn btn-warning"
             [routerLink]="['/postulantes/listado']">
             Volver
         </button>

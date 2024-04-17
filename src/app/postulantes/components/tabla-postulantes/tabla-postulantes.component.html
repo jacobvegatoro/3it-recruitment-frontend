@@ -22,19 +22,19 @@
                 <td>{{ postulante.ciudad | titlecase }}</td>
                 <td>
                     <a href="{{ postulante.enlaceBizneo }}" target="_blank">
-                        <i class="bi bi-search text-primary" title="Ir a Bizneo"></i>
+                        <i class="fas fa-blog" title="Ir a Bizneo"></i>
                     </a>
                     &nbsp;
                     <a [routerLink]="[ '/postulantes/detalle', postulante.id ]">
-                        <i class="bi bi-info-square text-warning" title="Detalle"></i>
+                        <i class="fas fa-info" title="Detalle"></i>
                     </a>
                     &nbsp;
                     <a [routerLink]="[ '/postulantes/editar', postulante.id ]">
-                        <i class="bi bi-pencil-square text-success" title="Editar"></i>
+                        <i class="fas fa-edit" title="Editar"></i>
                     </a>
                     &nbsp;
                     <a [routerLink]="['#']" (click)="onDeletePostulante(postulante.id)">
-                        <i class="bi bi-trash-fill text-danger" title="Eliminar"></i>
+                        <i class="fas fa-trash text-danger" title="Eliminar"></i>
                     </a>
                 </td>
             </tr>

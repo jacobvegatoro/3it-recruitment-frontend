@@ -7,7 +7,9 @@ import { RouterModule } from '@angular/router';
 import { ProcesosRoutingModule } from './procesos-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListadoProcesosComponent } from './pages/listado-procesos/listado-procesos.component';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -21,7 +23,10 @@ import { ListadoProcesosComponent } from './pages/listado-procesos/listado-proce
     SharedModule,
     RouterModule,
     ProcesosRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
-}) 
-export class ProcesosModule { } 
+})
+export class ProcesosModule { }

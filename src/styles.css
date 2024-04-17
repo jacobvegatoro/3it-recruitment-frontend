@@ -1,0 +1,278 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+:root {
+  --black01: #000000;
+  --black02: #414141;
+  --black03: #6f6f6f;
+  --white01: #FFFFFF;
+  --white02: #fbfbfb;
+  --white03: #e3e1e1;
+  --yellow01: #ECDA29;
+  --yellow02: #F2E98E;
+  --yellow03: #F9F2B4;
+  --yellow04: #9D911B;
+  --blue01: #3BC0CF;
+  --blue02: #8FD7DF;
+  --purple01: #3C3751;
+  --purple02: #5150C0;
+  --purple03: #6765f2;
+  --purple04: #9694f3;
+  --shadow01: 8px 8px 15px var(--white03);
+  --shadow02: 5px 5px var(--purple04);
+  --transition01: 400ms ease;
+}
+
+body {
+  background-color: var(--white02);
+  transition: var(--transition01);
+  color: var(--black02);
+}
+
+/* Assetts */
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Botones */
+
+.btn {
+  background-color: var(--purple02);
+  border: none;
+  border-radius: 0;
+  padding: 1rem;
+  color: var(--white01);
+  font-size: 0.8rem;
+}
+
+.btn-success {
+  background-color: var(--purple02);
+  padding: 1rem;
+}
+
+.btn-warning {
+  background-color: var(--yellow01);
+}
+
+.btn-warning:hover {
+  color: var(--white01);
+  background-color: var(--yellow02)!important;
+}
+
+.btn:hover {
+  background-color: var(--purple03);
+}
+
+.btn i {
+  margin-left: 5px;
+}
+
+/* Links */
+
+a {
+  color: var(--purple02);
+  cursor: pointer;
+}
+
+a:hover {
+  color: var(--purple03);
+}
+
+nav .ngx-pagination a {
+  text-decoration: none;
+}
+
+nav .ngx-pagination .current {
+  background: var(--purple03);
+}
+
+.current span {
+  color: var(--white01);
+}
+
+/* Textos */
+
+.list-group-item,
+table th,
+table td,
+p,
+h2,
+h3,
+h4,
+label,
+.col-form-label,
+span {
+  font-size: 0.9rem;
+  color: var(--black02);
+}
+
+.form-control {
+  background-color: var(--white02);
+  font-size: 0.9rem;
+  padding: 1rem;
+}
+
+.main-title,
+.outlet-wrapper h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--purple02);
+  margin-bottom: 2rem;
+}
+
+.main-title::after,
+.outlet-wrapper h2::after {
+  content: " ";
+  display: block;
+  width: 100%;
+  padding-top: 1rem;
+  border-bottom: 1px solid var(--white03);
+}
+
+h3 {
+  color: var(--purple02);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Login */
+
+.login-box {
+  box-shadow: var(--shadow01);
+  background-color: var(--white01);
+}
+
+.form-label {
+  color: var(--purple02);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.form-control {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid var(--purple02);
+  color: var(--black03);
+}
+
+/* Logo Wrapper */
+
+.logo-wrapper {
+  width: 100%;
+
+}
+
+.logo {
+  width: 80px;
+  display: block;
+  margin: auto;
+}
+
+.logo-title {
+  color: var(--black01);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Menu Lateral */
+
+app-menu .list-group {
+  letter-spacing: 1px;
+  box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: var(--shadow01);
+  cursor: pointer;
+}
+
+app-menu .list-group-item {
+  border-color: var(--white02);
+  font-size: 0.8rem;
+  padding: 1rem;
+  transition: var(--transition01);
+}
+
+app-menu .list-group-item:not(:last-child){
+  border-bottom: 1px solid var(--white02);
+}
+
+app-menu .list-group-item:hover {
+  border-color: var(--white03);
+  background-color: var(--white03);
+}
+
+app-menu .list-group-item.active {
+  border-color: var(--purple02);
+  background-color: var(--purple02);
+  border-bottom: 1px solid var(--purple02);
+}
+
+/* Contenido */
+
+.outlet-wrapper {
+  border-radius: 0;
+  box-shadow: var(--shadow01)
+}
+
+
+.outlet-wrapper .list-group-item {
+  border: none;
+  padding-left: 0;
+}
+
+.outlet-wrapper .list-group-item:hover {
+  cursor: initial;
+  background-color: var(--white01);
+}
+
+.outlet-wrapper .list-group-item:not(:last-child) {
+  border-bottom: 1px solid var(--white03);
+}
+
+.outlet-wrapper .list-group {
+  border-radius: 0;
+}
+
+.outlet-wrapper label {
+  color: var(--purple02);
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}
+
+
+/* Tablas */
+
+.outlet-wrapper table tr:not(:last-child) {
+  border: 0;
+  border-bottom: 1px solid var(--white03);
+}
+
+.outlet-wrapper table tr:last-child {
+  border: 1px solid var(--white01);
+}
+
+.outlet-wrapper table tbody tr:hover {
+  background-color: var(--white02);
+}
+
+.outlet-wrapper table tr td {
+  font-size: 0.9rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Cards */
+
+.card {
+  border-radius: 0;
+}
+
+.card-header {
+  border-radius: 0!important;
+  background-color: var(--white02);
+  font-size: 0.8rem;
+  font-weight: 700;
+}

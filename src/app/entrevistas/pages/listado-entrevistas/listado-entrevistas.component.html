@@ -1,1 +1,53 @@
-<p>listado-entrevistas works!</p>
+<h2 class="main-title">Entrevistas</h2>
+
+<div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Columna de Nombre -->
+    <ng-container matColumnDef="postulante">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="postulante.nombres" sortActionDescription="Ordenar por nombre">
+        Nombre
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.postulante?.nombres + " " + element.postulante?.apellidos }}
+      </td>      
+    </ng-container>
+    
+     <!-- Columna de Rol -->
+    <ng-container matColumnDef="rol">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="rol.detalle" sortActionDescription="Ordenar por rol">
+        Rol
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.rol?.detalle }}
+      </td>      
+    </ng-container>
+
+     <!-- Columna de Celula -->
+    <ng-container matColumnDef="celula">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="celula.nombre" sortActionDescription="Ordenar por célula">
+        Célula
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.celula?.nombre }}</td>
+    </ng-container>
+
+     <!-- Columna de Fecha y Hora -->
+    <ng-container matColumnDef="fechaHora">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="fecha_entrevista" sortActionDescription="Ordenar por fecha y hora">
+        Fecha y Hora
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.fecha_entrevista | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </ng-container>
+    
+    <!-- Definición de las filas de la tabla -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <!-- Paginador -->
+  <mat-paginator
+    [pageSizeOptions]="[10, 20]"
+    showFirstLastButtons
+    aria-label="Seleccionar página"
+  >
+  </mat-paginator>
+</div>

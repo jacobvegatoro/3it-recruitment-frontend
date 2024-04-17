@@ -1,5 +1,8 @@
-<h2>Reclutamiento</h2>
-<hr>
+<div class="logo-wrapper">
+  <img src="../../../../assets/images/svg/logo-3it.svg" alt="" class="logo">
+  <h2 class="mb-4 text-center logo-title">Reclutamiento</h2>
+</div>
+
 
 <ul class="list-group">
 <!--
@@ -45,28 +48,29 @@
     class="list-group-item">
     Entrevistas
   </li>
-  <!-- 
+  <!--
   <li [routerLink]="['/postulantes/crear']"
     routerLinkActive="active"
     class="list-group-item">
     Crear postulante
   </li>
   -->
-  <li [routerLink]="['/acerca-de']"
+  <li [routerLink]="['/panel-de-administracion']"
     routerLinkActive="active"
     class="list-group-item">
-    Acerca de
+    Panel de Administración
   </li>
-
+<!--
   <li [routerLink]="['/contacto']"
     routerLinkActive="active"
     class="list-group-item">
     Contacto
-  </li>
+  </li> -->
 
   <li (click)="onLogout()"
     routerLinkActive="active"
     class="list-group-item">
+    <i class="fas fa-sign-out-alt"></i>
     Cerrar sesión
   </li>
 

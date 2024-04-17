@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './shared/pages/inicio/inicio.component';
-import { AcercaDeComponent } from './shared/pages/acerca-de/acerca-de.component';
 import { ContactoComponent } from './shared/pages/contacto/contacto.component';
 import { isAuthenticatedGuard, isNotAuthenticatedGuard } from './auth/guards';
+import { PanelDeAdministracionComponent } from './shared/pages/panel-de-administracion/panel-de-administracion.component';
 
 
 const routes: Routes = [
@@ -13,9 +13,9 @@ const routes: Routes = [
     component: InicioComponent
   },
   {
-    path:'acerca-de',
+    path:'panel-de-administracion',
     canActivate: [ isAuthenticatedGuard ],
-    component: AcercaDeComponent
+    component: PanelDeAdministracionComponent
   },
   {
     path:'contacto',
@@ -49,7 +49,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
