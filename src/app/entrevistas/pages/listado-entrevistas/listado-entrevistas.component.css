@@ -1,0 +1,6 @@
+::ng-deep .mat-sort-header-container {
+  border: none !important;
+}
+.column-data, .column-name{
+  padding: 12px 70px;
+}

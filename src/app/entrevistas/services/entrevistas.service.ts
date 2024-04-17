@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { Entrevista } from '../interfaces/entrevista.interface';
 import { EntrevistaSave } from '../interfaces/entrevista-save.interface';
 import { Pregunta } from '../interfaces/pregunta.interface';
 import { RespuestaNueva } from '../interfaces/respuesta-nueva.interface';
 import { RespuestaExistente } from '../interfaces/respuesta-existente.interface';
+import { EntrevistaInfo } from '../interfaces/entrevista-info.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,26 @@ import { RespuestaExistente } from '../interfaces/respuesta-existente.interface'
 export class EntrevistasService {
 
   private readonly apiUrl:string = environment.baseUrl;
-  private http = inject( HttpClient );
+  constructor(private http: HttpClient) {}
   
+  obtenerEntrevistas(): Observable<EntrevistaInfo[]> {
+    const url = `${this.apiUrl}/entrevistas`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<EntrevistaInfo[]>(url, { headers }).pipe(
+      map((entrevistas: any[]) => {
+        return entrevistas.map(entrevista => ({
+          postulante: entrevista.proceso.postulante,
+          rol: entrevista.proceso.rol,
+          celula: entrevista.proceso.celula,
+          fecha_entrevista: entrevista.fecha_entrevista
+        }));
+      })
+    );
+  }
+
   obtenerEntrevistasPorProceso(idProceso:number):Observable<EntrevistaSave[]>{
     const url = `${this.apiUrl}/entrevistas/proceso/${idProceso}`;
     const token = localStorage.getItem('token');
@@ -27,7 +46,7 @@ export class EntrevistasService {
   }
 
   crearEntrevista(entrevista:EntrevistaSave):Observable<EntrevistaSave[]>{
-    const url = `${this.apiUrl}/entrevistas`;
+    const url = `${this.apiUrl}/entrevistas/crear`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders()

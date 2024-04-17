@@ -7,6 +7,8 @@ import { CrearEntrevistaComponent } from './pages/crear-entrevista/crear-entrevi
 import { EntrevistasRoutingModule } from './entrevistas-routing.module';
 import { ListadoEntrevistasComponent } from './pages/listado-entrevistas/listado-entrevistas.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -21,7 +23,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     RouterModule,
     EntrevistasRoutingModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
   ]
 })
 export class EntrevistasModule { }
