@@ -1,13 +1,14 @@
 export interface EntrevistaInfo {
-  postulante: {
+    postulante: {
       nombres: string;
       apellidos: string;
-  };
-  rol: {
+    };
+    rol: {
       detalle: string;
-  };
-  celula: {
+    };
+    celula: {
       nombre: string;
-  };
-  fecha_entrevista: string;
-}
+    };
+    fecha_entrevista: string;
+  }
+  
