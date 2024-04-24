@@ -6,9 +6,10 @@ import { RouterModule } from '@angular/router';
 import { CrearEntrevistaComponent } from './pages/crear-entrevista/crear-entrevista.component';
 import { EntrevistasRoutingModule } from './entrevistas-routing.module';
 import { ListadoEntrevistasComponent } from './pages/listado-entrevistas/listado-entrevistas.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -26,6 +27,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
   ]
 })
 export class EntrevistasModule { }
