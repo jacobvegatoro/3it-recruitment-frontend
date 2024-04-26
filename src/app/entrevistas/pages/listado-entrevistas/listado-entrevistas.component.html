@@ -2,7 +2,7 @@
 <!-- SearchBox -->
 <app-busqueda
   (onDebounce)="buscarEntrevistas($event)"
-  placeholder="Buscar por Nombre, Rol, Célula y Fecha"
+  placeholder="Buscar por Nombre, Apellido, Rol, Célula o Fecha"
 ></app-busqueda>
 
 <!-- Opciones de búsqueda -->
@@ -13,6 +13,14 @@
       [checked]="tipoBusqueda.includes('nombre')"
       (change)="toggleTipoBusqueda('nombre')"
       >Nombre</mat-checkbox
+    >
+  </div>
+  <div class="col">
+    <mat-checkbox
+      name="apellidos"
+      [checked]="tipoBusqueda.includes('apellido')"
+      (change)="toggleTipoBusqueda('apellido')"
+      >Apellido</mat-checkbox
     >
   </div>
   <div class="col">

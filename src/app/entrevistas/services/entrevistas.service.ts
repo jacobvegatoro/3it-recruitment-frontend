@@ -74,6 +74,28 @@ export class EntrevistasService {
     );
   }  
 
+  buscarPorApellido(apellido: string): Observable<EntrevistaInfo[]> {
+    const url = `${this.apiUrl}/entrevistas/buscar/apellido`;
+    const token = localStorage.getItem('token');
+  
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    const params = new HttpParams().set('apellido', apellido);
+  
+    return this.http.get<EntrevistaInfo[]>(url, { headers, params }).pipe(
+      tap(entrevistas => {
+        console.log('Entrevistas encontradas por apellido:', entrevistas);
+        this.entrevistasSubject.next(entrevistas);
+        this.cacheStore.listadoEntrevistas = { 'term': apellido, 'entrevistas': entrevistas };
+        this.saveToLocalStorage();
+      }),
+      catchError((error: any) => {
+        console.error('Error al buscar entrevistas:', error);
+        throw error;
+      })
+    );
+  }  
+
   buscarPorRol(rol: string): Observable<EntrevistaInfo[]> {
     const url = `${this.apiUrl}/entrevistas/buscar/rol`;
     const token = localStorage.getItem('token');
