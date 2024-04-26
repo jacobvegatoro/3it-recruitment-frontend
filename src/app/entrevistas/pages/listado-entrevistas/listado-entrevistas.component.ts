@@ -32,6 +32,8 @@ export class ListadoEntrevistasComponent implements OnInit {
       switch (property) {
         case 'postulante':
           return object.proceso.postulante.nombres;
+          case 'postulante':
+          return object.proceso.postulante.apellidos;
         case 'celula':
           return object.proceso.celula.nombre;
         case 'rol':
@@ -70,6 +72,8 @@ export class ListadoEntrevistasComponent implements OnInit {
         this.buscarPorFecha(valorBusqueda);
       } else if (tipo === 'nombre') {
         this.buscarPorNombre(valorBusqueda);
+      } else if (tipo === 'apellido') {
+        this.buscarPorApellido(valorBusqueda);
       } else if (tipo === 'rol') {
         this.buscarPorRol(valorBusqueda);
       } else if (tipo === 'celula') {
@@ -89,6 +93,17 @@ export class ListadoEntrevistasComponent implements OnInit {
   buscarPorNombre(nombre: string): void {
     this.isLoading = true;
     this.entrevistasService.buscarPorNombre(nombre).subscribe({
+      next: (entrevistas) => {
+        this.actualizarDataSource(entrevistas);
+        this.isLoading = false;
+      },
+      error: this.handleError,
+    });
+  }
+
+  buscarPorApellido(apellido: string): void {
+    this.isLoading = true;
+    this.entrevistasService.buscarPorApellido(apellido).subscribe({
       next: (entrevistas) => {
         this.actualizarDataSource(entrevistas);
         this.isLoading = false;

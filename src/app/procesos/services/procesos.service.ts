@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environments';
@@ -21,6 +21,30 @@ export class ProcesosService {
   obtenerProcesos():Observable<Proceso[]> {
     const url = `${this.apiUrl}/procesos`
     return this.http.get<Proceso[]>(url, {headers: this.headers})
+  }
+
+  buscarPorNombre(nombres: string): Observable<Proceso[]> {
+    const url = `${this.apiUrl}/procesos/buscar/nombre`;
+    const params = new HttpParams().set('nombres', nombres);
+    return this.http.get<Proceso[]>(url, { headers: this.headers, params });
+  }
+
+  buscarPorApellido(apellidos: string): Observable<Proceso[]> {
+    const url = `${this.apiUrl}/procesos/buscar/apellido`;
+    const params = new HttpParams().set('apellidos', apellidos);
+    return this.http.get<Proceso[]>(url, { headers: this.headers, params });
+  }
+
+  buscarPorRol(rol: string): Observable<Proceso[]> {
+    const url = `${this.apiUrl}/procesos/buscar/rol`;
+    const params = new HttpParams().set('rol', rol);
+    return this.http.get<Proceso[]>(url, { headers: this.headers, params });
+  }
+
+  buscarPorCelula(celula: string): Observable<Proceso[]> {
+    const url = `${this.apiUrl}/procesos/buscar/celula`;
+    const params = new HttpParams().set('celula', celula);
+    return this.http.get<Proceso[]>(url, { headers: this.headers, params });
   }
 
   obtenerProcesosPorPostulante(idPostulante:number):Observable<Proceso[]>{

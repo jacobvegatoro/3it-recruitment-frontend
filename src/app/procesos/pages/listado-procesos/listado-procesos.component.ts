@@ -13,64 +13,113 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./listado-procesos.component.css']
 })
 export class ListadoProcesosComponent implements OnInit {
-  public procesos:Proceso [] = [];
-  public celulas:Celula [] = [];
+  public procesos: Proceso[] = [];
+  public celulas: Celula[] = [];
   public isLoading: boolean = false;
-  public initialValue:string = '';
-  public dataSource = new MatTableDataSource();
+  public dataSource = new MatTableDataSource<Proceso>();
   public displayedColumns: string[] = ['fecha_ingreso', 'postulante', 'celula', 'rol'];
-  private procesosService = inject( ProcesosService );
+  private procesosService = inject(ProcesosService);
   private _liveAnnouncer = inject(LiveAnnouncer);
+
+  public tipoBusqueda: string[] = [];
+  public nombre: string = '';
+  public apellido: string = '';  
+  public rol: string = '';
+  public celula: string = '';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit(): void {
-    this.procesosService.obtenerProcesos()
-    .subscribe(procesos => {
-      this.dataSource.data = procesos
-
-      // Soluciona el sorting para los elementos nested del objeto
-      this.dataSource.sortingDataAccessor = (object:any, property) => {
-        switch (property) {
-          case "postulante":
-            return object.postulante.nombres;
-          case "celula":
-            return object.celula.nombre;
-          case "rol":
-            return object.rol.detalle;
-          default:
-            return object[property];
-        }
-      }
-
-      this.isLoading = false;
-      this.dataSource.paginator = this.paginator;
-      this.sort.sort(({ id: 'fecha_ingreso', start: 'desc'}) as MatSortable);
-      this.dataSource.sort = this.sort;
-
-      // Traducciones
-
-      this.paginator._intl.itemsPerPageLabel="Items por página";
-      this.paginator._intl.getRangeLabel = (page,pageSize,length)=>{
-        if (length == 0 || pageSize == 0) {
-            return `0 of ${length}`;
-        }
-        length = Math.max(length, 0);
-        const startIndex = page * pageSize;
-        // If the start index exceeds the list length, do not try and fix the end index to the end.
-        const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-        return `${startIndex + 1} – ${endIndex} de ${length}`;
-    }
-    })
+    this.obtenerProcesos();
   }
 
-  /** Announce the change in sort state for assistive technology. */
+  obtenerProcesos() {
+    this.isLoading = true;
+    this.procesosService.obtenerProcesos()
+      .subscribe(procesos => {
+        this.dataSource.data = procesos;
+        this.isLoading = false;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+  }
+
+  buscarProcesos(valorBusqueda: string): void {
+    this.tipoBusqueda.forEach(tipo => {
+      if (tipo === 'nombre') {
+        const [nombre] = valorBusqueda.split(' ');
+        this.buscarPorNombre(nombre);
+      } else if (tipo === 'apellido') {
+        this.buscarPorApellido(valorBusqueda);
+      } else if (tipo === 'rol') {
+        this.buscarPorRol(valorBusqueda);
+      } else if (tipo === 'celula') {
+        this.buscarPorCelula(valorBusqueda);
+      }
+    });
+  }  
+
+  toggleTipoBusqueda(opcion: string): void {
+    if (this.tipoBusqueda.includes(opcion)) {
+      this.tipoBusqueda = this.tipoBusqueda.filter(item => item !== opcion);
+    } else {
+      this.tipoBusqueda = [opcion];
+    }
+  } 
+  buscarPorNombre(nombre: string): void {
+    this.isLoading = true;
+    this.procesosService.buscarPorNombre(nombre).subscribe({
+      next: (procesos) => {
+        this.actualizarDataSource(procesos);
+        this.isLoading = false;
+      },
+      error: this.handleError,
+    });
+  }
+
+  buscarPorApellido(apellido: string): void {
+    this.isLoading = true;
+    this.procesosService.buscarPorApellido(apellido).subscribe({
+      next: (procesos) => {
+        this.actualizarDataSource(procesos);
+        this.isLoading = false;
+      },
+      error: this.handleError,
+    });
+  }
+
+  buscarPorRol(rol: string): void {
+    this.isLoading = true;
+    this.procesosService.buscarPorRol(rol).subscribe({
+      next: (procesos) => {
+        this.actualizarDataSource(procesos);
+        this.isLoading = false;
+      },
+      error: this.handleError,
+    });
+  }
+
+  buscarPorCelula(celula: string): void {
+    this.isLoading = true;
+    this.procesosService.buscarPorCelula(celula).subscribe({
+      next: (procesos) => {
+        this.actualizarDataSource(procesos);
+        this.isLoading = false;
+      },
+      error: this.handleError,
+    });
+  }
+  actualizarDataSource(entrevistas: Proceso[]): void {
+    this.dataSource.data = entrevistas.length > 0 ? entrevistas : [];
+  }
+
+  handleError = (error: any): void => {
+    console.error('Error al buscar entrevistas:', error);
+    this.isLoading = false;
+  };
+
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
