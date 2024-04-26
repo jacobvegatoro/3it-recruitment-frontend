@@ -3,6 +3,7 @@
 Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) en su versión 16.2.4.
 Corresponde a una plataforma web que permite registrar entrevistas de diferentes candidatos, y llevar un registro de las actividades de capacitación de los trabajadores de una empresa.
 
+
 ## Ejecución local
 
 1. Clonar el proyecto ```git clone https://github.com/jacobvegatoro/3it-recruitment-frontend.git```
