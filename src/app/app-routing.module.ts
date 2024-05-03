@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './shared/pages/inicio/inicio.component';
 import { ContactoComponent } from './shared/pages/contacto/contacto.component';
 import { isAuthenticatedGuard, isNotAuthenticatedGuard } from './auth/guards';
-import { PanelDeAdministracionComponent } from './shared/pages/panel-de-administracion/panel-de-administracion.component';
+import { RolesComponent } from './shared/pages/roles/roles.component';
 
 
 const routes: Routes = [
@@ -13,9 +13,9 @@ const routes: Routes = [
     component: InicioComponent
   },
   {
-    path:'panel-de-administracion',
+    path:'roles',
     canActivate: [ isAuthenticatedGuard ],
-    component: PanelDeAdministracionComponent
+    component: RolesComponent
   },
   {
     path:'contacto',
@@ -36,6 +36,11 @@ const routes: Routes = [
     path:'procesos',
     canActivate: [ isAuthenticatedGuard ],
     loadChildren: () => import('./procesos/procesos.module').then(m => m.ProcesosModule )
+  },
+  {
+    path:'preguntas',
+    canActivate: [ isAuthenticatedGuard ],
+    loadChildren: () => import('./preguntas/pregunta.module').then(m => m.PreguntaModule )
   },
   {
     path:'auth',
