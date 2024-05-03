@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
-import { PanelDeAdministracionComponent } from './pages/panel-de-administracion/panel-de-administracion.component';
+import { RolesComponent } from './pages/roles/roles.component';
 import { RolesModule } from '../roles/roles.module';
 import { EstadisticasModule } from '../estadisticas/estadisticas.module';
 
@@ -19,13 +19,13 @@ import { EstadisticasModule } from '../estadisticas/estadisticas.module';
     InicioComponent,
     LoadingSpinnerComponent,
     MenuComponent,
-    PanelDeAdministracionComponent
+    RolesComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     RolesModule,
-    EstadisticasModule
+    EstadisticasModule,
   ],
   exports:[
     BusquedaComponent,
@@ -33,7 +33,7 @@ import { EstadisticasModule } from '../estadisticas/estadisticas.module';
     InicioComponent,
     LoadingSpinnerComponent,
     MenuComponent,
-    PanelDeAdministracionComponent,
+    RolesComponent,
   ]
 })
 export class SharedModule { }

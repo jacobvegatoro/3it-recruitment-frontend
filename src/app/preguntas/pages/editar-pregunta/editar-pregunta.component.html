@@ -1,0 +1,64 @@
+<h2>Preguntas - Editar pregunta</h2>
+
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="myForm" (ngSubmit)="onSave()" autocomplete="off">
+
+            <!-- Campo de pregunta -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Pregunta</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="detalle"
+                           placeholder="Escriba la pregunta">
+                    <span *ngIf="isValidField('detalle')" class="form-text text-danger">
+                        {{ getFieldError('detalle') }}
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Campo de estado -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Estado</label>
+                <div class="col-sm-9">
+                    <select class="form-select" formControlName="activo" class="form-control">
+                        <option [value]="true">Activo</option>
+                        <option [value]="false">Inactivo</option>
+                    </select>
+                    <span *ngIf="isValidField('activo')" class="form-text text-danger">
+                        {{ getFieldError('activo') }}
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Campo de Rol -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Rol</label>
+                <div class="col-sm-9">
+                    <select name="rol" id="rol" formControlName="idRol" class="form-control">
+                        <option value="">Selecciona un rol</option>
+                        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.detalle }}</option>
+                    </select>
+                    <span *ngIf="isValidField('idRol')"
+                        class="form-text text-danger">
+                        {{ getFieldError('idRol') }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-warning" [routerLink]="['/preguntas/listado']">
+                        Volver
+                    </button>
+                    <button type="submit" class="btn btn-primary float-end">
+                        Guardar
+                        <i class="fas fa-save"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
