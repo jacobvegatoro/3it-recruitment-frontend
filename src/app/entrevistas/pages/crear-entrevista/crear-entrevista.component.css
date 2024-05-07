@@ -1,0 +1,27 @@
+.container {
+    padding-top: 20px; /* Ajusta este valor según sea necesario */
+    max-width: 100%; /* Asegúrate de establecer el ancho en 100% */
+    position: absolute;
+    left: 0;
+  }
+  
+  .main-title {
+    margin-top: 5px; /* Espacio entre la barra de navegación y el título */
+  }
+  
+  .row {
+    margin-top: 5px; /* Espacio entre la barra de navegación y las opciones de búsqueda */
+  }
+  
+  table {
+    width: 100%; /* La tabla ocupará todo el ancho disponible */
+  }
+  
+  .mat-elevation-z0 {
+    box-shadow: none !important; /* Elimina cualquier sombra en la tabla */
+  }
+  
+  .column-data, .column-name {
+    padding: 12px 70px;
+  }
+  

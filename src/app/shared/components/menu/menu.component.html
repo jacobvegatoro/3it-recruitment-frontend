@@ -1,84 +1,35 @@
-<div class="logo-wrapper">
-  <img src="../../../../assets/images/svg/logo-3it.svg" alt="" class="logo">
-  <h2 class="mb-4 text-center logo-title">Reclutamiento</h2>
+<div class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <!-- Logo y título -->
+    <div class="logo-reclutamiento">
+      <div class="logo-wrapper mt-3">
+        <img src="../../../../assets/images/svg/logo-3it.svg" alt="" class="logo">
+      </div>
+      <h2 class="mt-3 logo-title">Reclutamiento</h2>
+    </div>
+    <!-- Menú -->
+    <ul class="nav justify-content-center">
+      <li class="nav-item" [routerLink]="['/inicio']" routerLinkActive="active">
+        Inicio
+      </li>
+      <li class="nav-item" [routerLink]="['/postulantes/listado']" routerLinkActive="active">
+        Postulantes
+      </li>
+      <li class="nav-item" [routerLink]="['/procesos/listado']" routerLinkActive="active">
+        Procesos
+      </li>
+      <li class="nav-item" [routerLink]="['/entrevistas/listado']" routerLinkActive="active">
+        Entrevistas
+      </li>
+      <li class="nav-item" [routerLink]="['/roles']" routerLinkActive="active">
+        Roles
+      </li>
+      <li class="nav-item" [routerLink]="['/preguntas']" routerLinkActive="active">
+        Preguntas
+      </li>
+      <li class="nav-item" (click)="onLogout()">
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+      </li>
+    </ul>
+  </div>
 </div>
-
-
-<ul class="list-group">
-<!--
-  <li routerLink=""
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    class="list-group-item">
-    Home Page
-  </li>
-
-  <li routerLink="about"
-    routerLinkActive="active"
-    class="list-group-item">
-    About Page
-  </li>
-
-  <li routerLink="contact"
-    routerLinkActive="active"
-    class="list-group-item">
-    Contact Page
-  </li> -->
-
-  <li [routerLink]="['/inicio']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Inicio
-  </li>
-
-  <li [routerLink]="['/postulantes/listado']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Postulantes
-  </li>
-
-  <li [routerLink]="['/procesos/listado']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Procesos
-  </li>
-
-  <li [routerLink]="['/entrevistas/listado']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Entrevistas
-  </li>
-  <!--
-  <li [routerLink]="['/postulantes/crear']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Crear postulante
-  </li>
-  -->
-  <li [routerLink]="['/roles']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Roles
-  </li>
-
-  <li [routerLink]="['/preguntas']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Preguntas
-  </li>
-<!--
-  <li [routerLink]="['/contacto']"
-    routerLinkActive="active"
-    class="list-group-item">
-    Contacto
-  </li> -->
-
-  <li (click)="onLogout()"
-    routerLinkActive="active"
-    class="list-group-item">
-    <i class="fas fa-sign-out-alt"></i>
-    Cerrar sesión
-  </li>
-
-</ul>
-
