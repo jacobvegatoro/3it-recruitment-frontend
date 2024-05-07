@@ -1,82 +1,93 @@
 <ng-template #loading>
-    <div class="alert alert-info text-center">
-        Espere por favor
-    </div>
+  <div class="alert alert-info text-center">Espere por favor</div>
 </ng-template>
 
-<div *ngIf="postulante; else loading">
+<div class="container mt-5 py-4 px-5">
+  <div *ngIf="postulante; else loading">
     <div class="row">
-        <div class="col-12">
-            <h2>Postulante - Detalle</h2>
-        </div>
+      <div class="col-12">
+        <h2>Postulante - Detalle</h2>
+      </div>
     </div>
 
     <div class="row">
-        <div class="col-6">
-            <div class="row">
-                <div class="col">
-                    <h3>Información</h3>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <strong>Nombre: </strong> {{ postulante.nombres }} {{ postulante.apellidos }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Ciudad: </strong> {{ postulante.ciudad }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Enlace Bizneo: </strong><a href="{{ postulante.enlaceBizneo }}" target="_blank">Abrir</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col">
-                    <button
-                        type="button"
-                        class="btn btn-success"
-                        [routerLink]="['/procesos/crear', postulante.id]"
-                        >
-                        Crear proceso
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-            </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col">
+            <h3>Información</h3>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <strong>Nombre: </strong> {{ postulante.nombres }}
+                {{ postulante.apellidos }}
+              </li>
+              <li class="list-group-item">
+                <strong>Ciudad: </strong> {{ postulante.ciudad }}
+              </li>
+              <li class="list-group-item">
+                <strong>Enlace Bizneo: </strong
+                ><a href="{{ postulante.enlaceBizneo }}" target="_blank"
+                  >Abrir</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="col-6">
-            <div class="row">
-                <div class="col">
-                    <h3>Procesos</h3>
-                    <div *ngIf="procesos?.length === 0" class="alert alert-warning text-center">
-                        El postulante no tiene procesos registrados
-                    </div>
-                    <div *ngFor="let proceso of procesos" class="card mt-2">
-                        <div class="card-header">
-                          {{ proceso.celula.nombre }}
-                        </div>
-                        <div class="card-body">
-                          <h5 class="card-title">{{ proceso.rol.detalle }}</h5>
-                          <p class="card-text">Fecha creación: {{ proceso.fecha_ingreso | date: 'MMMM d, y, h:mm:ss a' }}</p>
-                          <a 
-                            class="btn btn-primary"
-                            [routerLink]="['/entrevistas/crear', proceso.id]">
-                            Ir a entrevista</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="row mt-4">
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-success"
+              [routerLink]="['/procesos/crear', postulante.id]"
+            >
+              Crear proceso
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
         </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col">
+            <h3>Procesos</h3>
+            <div
+              *ngIf="procesos?.length === 0"
+              class="alert alert-warning text-center"
+            >
+              El postulante no tiene procesos registrados
+            </div>
+            <div *ngFor="let proceso of procesos" class="card mt-2">
+              <div class="card-header">
+                {{ proceso.celula.nombre }}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ proceso.rol.detalle }}</h5>
+                <p class="card-text">
+                  Fecha creación:
+                  {{ proceso.fecha_ingreso | date : "MMMM d, y, h:mm:ss a" }}
+                </p>
+                <a
+                  class="btn btn-primary"
+                  [routerLink]="['/entrevistas/crear', proceso.id]"
+                >
+                  Ir a entrevista</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-</div>
-
-<div class="row mt-4">
+  <div class="row mt-4">
     <div class="col">
-        <button
-            type="button"
-            class="btn btn-warning"
-            [routerLink]="['/postulantes/listado']">
-            Volver
-        </button>
+      <button
+        type="button"
+        class="btn btn-warning"
+        [routerLink]="['/postulantes/listado']"
+      >
+        Volver
+      </button>
     </div>
+  </div>
 </div>
