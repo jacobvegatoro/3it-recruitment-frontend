@@ -174,7 +174,8 @@ export class EntrevistasService {
   }
 
   crearEntrevista(entrevista: EntrevistaSave): Observable<EntrevistaSave[]> {
-    const url = `${this.apiUrl}/entrevistas/crear`;
+    //const url = `${this.apiUrl}/entrevistas/crear`;
+    const url = `${this.apiUrl}/entrevistas`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -191,6 +192,18 @@ export class EntrevistasService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.post<RespuestaNueva>(url, respuestas, { headers });
+  }
+
+  editarRespuestasMultiples(
+    respuestas: RespuestaExistente[],
+    id: number
+  ): Observable<RespuestaExistente> {
+    const url = `${this.apiUrl}/respuestas/multiples/${id}`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.put<RespuestaExistente>(url, respuestas, { headers });
   }
 
   editarEntrevista(

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { Pregunta } from '../../interfaces/pregunta.interface';
 import { EntrevistaForm } from '../../interfaces/entrevista-form.interface';
 import { RespuestaExistente } from '../../interfaces/respuesta-existente.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-crear-entrevista',
@@ -129,7 +130,6 @@ export class CrearEntrevistaComponent implements OnInit {
 
         this.entrevistaActual.idProceso = proceso.id;
 
-        //console.log(proceso);
         this.proceso = proceso;
         this.idPostulante = proceso.postulante.id;
         return;
@@ -142,7 +142,6 @@ export class CrearEntrevistaComponent implements OnInit {
         switchMap( ({ id }) => this.entrevistasService.obtenerEntrevistasPorProceso( id )),
       )
       .subscribe( entrevistas => {
-        //console.log(entrevistas);
         this.entrevistas = entrevistas;
         if (this.entrevistas.length > 0){
           this.accion = "editar";
@@ -150,11 +149,7 @@ export class CrearEntrevistaComponent implements OnInit {
         }
         else{
           this.accion = "crear";
-          //this.entrevistaActual.idProceso = this.proceso.id;
-          //this.obtenerPreguntasPorRol(this.proceso.rol.id);
           this.llenarEntrevistaNueva();
-          //console.log(this.preguntas);
-          //this.formEntrevista.reset(this.entrevistaActual);
         }
         return;
       });
@@ -164,11 +159,6 @@ export class CrearEntrevistaComponent implements OnInit {
     this.entrevistasService.obtenerPreguntasPorRol(idRol)
     .subscribe( preguntas => {
       this.preguntas = preguntas;
-      //console.log(this.preguntas);
-
-      /*for (var pregunta in this.preguntas){
-
-      }*/
       return;
     });
   }
@@ -176,7 +166,6 @@ export class CrearEntrevistaComponent implements OnInit {
   llenarEntrevistaNueva():void{
     console.log(this.proceso.id);
     console.log(this.proceso.rol.id);
-    //console.log(this.preguntas);
 
     this.entrevistaForm.idProceso = this.proceso.id;
 
@@ -206,23 +195,25 @@ export class CrearEntrevistaComponent implements OnInit {
   }
 
   llenarEntrevistaActual(entrevista:EntrevistaSave):void{
-    //console.log(entrevista);
-    //this.entrevistaActual.id = entrevista.id;
-    //this.idEntrevista = entrevista.id;
     localStorage.setItem('idEntrevista',entrevista.id.toString());
 
     let formulario:EntrevistaForm = {} as EntrevistaForm;
 
     formulario.idProceso = this.proceso.id;
 
-    if (entrevista.fecha_entrevista.length >= 15){
+    console.log(entrevista.fecha_entrevista);
+    let datePipe = new DatePipe('es-CL');
+    formulario.fecha_entrevista = datePipe.transform(entrevista.fecha_entrevista,'yyyy-MM-dd HH:mm') || '';
+    console.log(formulario.fecha_entrevista);
+    
+    /*if (entrevista.fecha_entrevista.length >= 15){
       console.log(entrevista.fecha_entrevista);
       formulario.fecha_entrevista = entrevista.fecha_entrevista.substring(0,16);
       console.log(formulario.fecha_entrevista);
     }
     else{
       formulario.fecha_entrevista = entrevista.fecha_entrevista;
-    }
+    }*/
 
     formulario.perfilBuscado = entrevista.perfilBuscado;
     formulario.comentariosPrueba = entrevista.comentariosPrueba;
@@ -233,6 +224,9 @@ export class CrearEntrevistaComponent implements OnInit {
 
     this.entrevistasService.obtenerRespuestasPorEntrevista(entrevista.id)
     .subscribe( respuestas => {
+
+      console.log(respuestas);
+
       formulario.tp1 = respuestas.at(0) != null ? respuestas.at(0)!.textoPregunta : '';
       formulario.tr1 = respuestas.at(0) != null ? respuestas.at(0)!.textoRespuesta : '';
       formulario.pt1 = respuestas.at(0) != null ? respuestas.at(0)!.puntaje : 0;
@@ -311,9 +305,6 @@ export class CrearEntrevistaComponent implements OnInit {
       this.formEntrevista.reset(formulario);
     });
 
-
-    //this.formEntrevista.reset(this.entrevistaActual);
-    //this.entrevistaActual.idProceso = 0;    
   }
 
   isValidField( field:string ): boolean | null {
@@ -344,7 +335,6 @@ export class CrearEntrevistaComponent implements OnInit {
   }
 
   prepararAlmacenamiento():void{
-    //this.entrevistaActual.id = this.idEntrevista;
     this.entrevistaActual.fecha_entrevista = this.formEntrevista.get('fecha_entrevista')?.value;
     this.entrevistaActual.perfilBuscado = this.formEntrevista.get('perfilBuscado')?.value;
     this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
@@ -372,31 +362,23 @@ export class CrearEntrevistaComponent implements OnInit {
       next: (entrevistaNueva) => {
         console.log(entrevistaNueva);
         console.log(entrevistaNueva[0].id);
-        //this.idEntrevista = entrevistaNueva.id;
-        //context.idEntrevista = entrevistaNueva.id;
         let id = "" + entrevistaNueva[0].id;
         localStorage.setItem('idEntrevista',id);
         console.log("Obtengo ID de creacion");
         console.log(id);
         this.agregarRespuestas();
-        /*Swal.fire({  
-          text: "La entrevista ha sido creada exitosamente",
-          icon: "success"
-        });*/
       },
       error: () => {
         Swal.fire('Error', 'Ocurrió un error al crear la entrevista', 'error');
       }
     });
 
-    //this.agregarRespuestas();
-
     return;
   }
 
   agregarRespuestas():void{
     this.respuestasNuevas = [];
-    //console.log(this.idEntrevista);
+
     console.log('Obtengo ID entrevista de Local Storage');
     console.log(localStorage.getItem('idEntrevista'));
     this.idEntrevista = Number(localStorage.getItem('idEntrevista'));
@@ -548,13 +530,331 @@ export class CrearEntrevistaComponent implements OnInit {
           text: "La entrevista y las respuestas han sido creadas exitosamente",
           icon: "success"
         });
+        this.obtenerEntrevistas();
       },
       error: () => {
         Swal.fire('Error', 'La entrevista fue creada sin problemas, pero ocurrió un error al crear las respuestas', 'error');
       }
     });
 
+    //this.ngOnInit();
+    //this.obtenerEntrevistas();
+
     return;    
+  }
+
+  editarRespuestas():void{
+    this.respuestasNuevas = [];
+    this.respuestasExistentes = [];
+
+    console.log('Obtengo ID entrevista de Local Storage');
+    console.log(localStorage.getItem('idEntrevista'));
+    this.idEntrevista = Number(localStorage.getItem('idEntrevista'));
+    console.log(this.idEntrevista);
+    let idEnt = Number(localStorage.getItem('idEntrevista'));
+    console.log(idEnt);
+
+    if (this.formEntrevista.get('ip1')?.value != null && this.formEntrevista.get('ip1')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp1')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr1')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt1')?.value != null ? this.formEntrevista.get('pt1')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip1')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp1')?.value.length > 0 && this.formEntrevista.get('tr1')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp1')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr1')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt1')?.value != null ? this.formEntrevista.get('pt1')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip2')?.value != null && this.formEntrevista.get('ip2')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp2')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr2')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt2')?.value != null ? this.formEntrevista.get('pt2')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip2')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp2')?.value.length > 0 && this.formEntrevista.get('tr2')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp2')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr2')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt2')?.value != null ? this.formEntrevista.get('pt2')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip3')?.value != null && this.formEntrevista.get('ip3')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp3')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr3')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt3')?.value != null ? this.formEntrevista.get('pt3')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip3')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp3')?.value.length > 0 && this.formEntrevista.get('tr3')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp3')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr3')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt3')?.value != null ? this.formEntrevista.get('pt3')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip4')?.value != null && this.formEntrevista.get('ip4')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp4')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr4')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt4')?.value != null ? this.formEntrevista.get('pt4')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip4')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp4')?.value.length > 0 && this.formEntrevista.get('tr4')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp4')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr4')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt4')?.value != null ? this.formEntrevista.get('pt4')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip5')?.value != null && this.formEntrevista.get('ip5')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp5')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr5')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt5')?.value != null ? this.formEntrevista.get('pt5')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip5')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp5')?.value.length > 0 && this.formEntrevista.get('tr5')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp5')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr5')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt5')?.value != null ? this.formEntrevista.get('pt5')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip6')?.value != null && this.formEntrevista.get('ip6')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp6')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr6')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt6')?.value != null ? this.formEntrevista.get('pt6')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip6')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp6')?.value.length > 0 && this.formEntrevista.get('tr6')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp6')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr6')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt6')?.value != null ? this.formEntrevista.get('pt6')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip7')?.value != null && this.formEntrevista.get('ip7')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp7')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr7')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt7')?.value != null ? this.formEntrevista.get('pt7')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip7')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp7')?.value.length > 0 && this.formEntrevista.get('tr7')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp7')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr7')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt7')?.value != null ? this.formEntrevista.get('pt7')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip8')?.value != null && this.formEntrevista.get('ip8')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp8')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr8')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt8')?.value != null ? this.formEntrevista.get('pt8')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip8')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp8')?.value.length > 0 && this.formEntrevista.get('tr8')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp8')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr8')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt8')?.value != null ? this.formEntrevista.get('pt8')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip9')?.value != null && this.formEntrevista.get('ip9')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp9')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr9')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt9')?.value != null ? this.formEntrevista.get('pt9')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip9')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp9')?.value.length > 0 && this.formEntrevista.get('tr9')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp9')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr9')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt9')?.value != null ? this.formEntrevista.get('pt9')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip10')?.value != null && this.formEntrevista.get('ip10')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp10')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr10')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt10')?.value != null ? this.formEntrevista.get('pt10')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip10')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp10')?.value.length > 0 && this.formEntrevista.get('tr10')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp10')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr10')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt10')?.value != null ? this.formEntrevista.get('pt10')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+    
+    if (this.formEntrevista.get('ip11')?.value != null && this.formEntrevista.get('ip11')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp11')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr11')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt11')?.value != null ? this.formEntrevista.get('pt11')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip11')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp11')?.value.length > 0 && this.formEntrevista.get('tr11')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp11')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr11')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt11')?.value != null ? this.formEntrevista.get('pt11')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip12')?.value != null && this.formEntrevista.get('ip12')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp12')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr12')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt12')?.value != null ? this.formEntrevista.get('pt12')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip12')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp12')?.value.length > 0 && this.formEntrevista.get('tr12')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp12')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr12')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt12')?.value != null ? this.formEntrevista.get('pt12')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip13')?.value != null && this.formEntrevista.get('ip13')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp13')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr13')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt13')?.value != null ? this.formEntrevista.get('pt13')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip13')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp13')?.value.length > 0 && this.formEntrevista.get('tr13')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp13')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr13')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt13')?.value != null ? this.formEntrevista.get('pt13')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip14')?.value != null && this.formEntrevista.get('ip14')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp14')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr14')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt14')?.value != null ? this.formEntrevista.get('pt14')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip14')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp14')?.value.length > 0 && this.formEntrevista.get('tr14')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp14')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr14')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt14')?.value != null ? this.formEntrevista.get('pt14')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    if (this.formEntrevista.get('ip15')?.value != null && this.formEntrevista.get('ip15')?.value != 0){
+      let respuesta:RespuestaExistente = {} as RespuestaExistente;
+      respuesta.textoPregunta = this.formEntrevista.get('tp15')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr15')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt15')?.value != null ? this.formEntrevista.get('pt15')?.value : 0;
+      respuesta.id = this.formEntrevista.get('ip15')?.value;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasExistentes.push(respuesta);
+    }
+    else if (this.formEntrevista.get('tp15')?.value.length > 0 && this.formEntrevista.get('tr15')?.value.length > 0){
+      let respuesta:RespuestaNueva = {} as RespuestaNueva;
+      respuesta.textoPregunta = this.formEntrevista.get('tp15')?.value;
+      respuesta.textoRespuesta = this.formEntrevista.get('tr15')?.value;
+      respuesta.puntaje = this.formEntrevista.get('pt15')?.value != null ? this.formEntrevista.get('pt15')?.value : 0;
+      respuesta.idEntrevista = this.idEntrevista;
+      this.respuestasNuevas.push(respuesta);
+    }
+
+    console.log(this.respuestasNuevas);
+
+    this.entrevistasService.crearRespuestasMultiples( this.respuestasNuevas )
+    .subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+      },
+      error: () => {
+        Swal.fire('Error', 'La entrevista fue editada sin problemas, pero ocurrió un error al agregar nuevas respuestas', 'error');
+      }
+    });
+
+    this.entrevistasService.editarRespuestasMultiples( this.respuestasExistentes, this.idEntrevista )
+    .subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+        Swal.fire({  
+          text: "La entrevista y las respuestas han sido editadas exitosamente",
+          icon: "success"
+        });
+      },
+      error: () => {
+        Swal.fire('Error', 'La entrevista fue editada sin problemas, pero ocurrió un error al agregar nuevas respuestas', 'error');
+      }
+    });
+
+    console.log(this.respuestasExistentes);
+    this.ngOnInit();
+    //this.obtenerEntrevistas();
+
+    return;
   }
 
   editarEntrevista():void{
@@ -568,62 +868,43 @@ export class CrearEntrevistaComponent implements OnInit {
     this.entrevistaActual.descripcionPersonal = this.formEntrevista.get('descripcionPersonal')?.value;
     this.entrevistaActual.preguntasCandidato = this.formEntrevista.get('preguntasCandidato')?.value;
 
-    console.log(this.entrevistaActual);
+    this.idEntrevista = Number(localStorage.getItem('idEntrevista'));
 
+    console.log(this.entrevistaActual);
+    console.log(this.idEntrevista);
+
+    this.entrevistasService.editarEntrevista( this.entrevistaActual, this.idEntrevista )
+    .subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+        this.editarRespuestas();
+        Swal.fire({  
+          text: "La entrevista ha sido editada exitosamente",
+          icon: "success"
+        });
+      },
+      error: () => {
+        Swal.fire('Error', 'Ocurrió un error al editar la entrevista', 'error');
+      }
+    });
+
+    return;
   }
 
   onSave():void{
-
     if ( this.formEntrevista.invalid ){
       this.formEntrevista.markAllAsTouched();
       return;
     }
 
-    //this.entrevistaActual = this.formEntrevista.value as EntrevistaSave;
-    //this.prepararAlmacenamiento();
-    //console.log(this.entrevistaActual);
-    //console.log(this.idEntrevista);
-
     if (this.accion == "crear"){
       this.agregarEntrevista();
-      //this.agregarRespuestas();
-      //console.log("Recupero ID de entrevista nueva:");
-      //let context=this;
-      //console.log(context.idEntrevista);
-      /*this.entrevistasService.crearEntrevista( this.entrevistaActual )
-      .subscribe({
-        next: () => {
-          Swal.fire({  
-            text: "La entrevista ha sido creada exitosamente",
-            icon: "success"
-          });
-          this.obtenerEntrevistas();
-        },
-        error: () => {
-          Swal.fire('Error', 'Ocurrió un error al crear la entrevista', 'error');
-        }
-      });*/  
+      //this.ngOnInit();
     }
 
     if (this.accion == "editar"){
       this.editarEntrevista();
-      /*this.entrevistasService.editarEntrevista( this.entrevistaActual, this.idEntrevista )
-      .subscribe({
-        next: () => {
-          Swal.fire({  
-            text: "La entrevista ha sido editada exitosamente",
-            icon: "success"
-          });
-          //this.obtenerEntrevistas();
-        },
-        error: () => {
-          Swal.fire('Error', 'Ocurrió un error al editar la entrevista', 'error');
-        }
-      });*/  
-
     }
-
-
   }
 
 }
