@@ -26,8 +26,8 @@
                 <label class="col-sm-3 col-form-label">Estado</label>
                 <div class="col-sm-9">
                     <select class="form-select" formControlName="activo" class="form-control">
-                        <option [value]="true">Activo</option>
-                        <option [value]="false">Inactivo</option>
+                        <option [value]="1">Activo</option>
+                        <option [value]="0">Inactivo</option>
                     </select>
                     <span *ngIf="isValidField('activo')" class="form-text text-danger">
                         {{ getFieldError('activo') }}

@@ -27,7 +27,7 @@ export class CrearPreguntaComponent implements OnInit {
 
     this.myForm = this.fb.group({
       detalle: ['', [Validators.required, Validators.minLength(3)]],
-      activo: [true, Validators.required],
+      activo: [1, Validators.required],
       idRol: ['', Validators.required],
     });
   }
@@ -70,7 +70,8 @@ export class CrearPreguntaComponent implements OnInit {
           text: 'La pregunta ha sido creado exitosamente',
           icon: 'success',
         });
-        this.myForm.reset();
+        //this.myForm.reset();
+        this.ngOnInit();
       },
       error: () => {
         Swal.fire('Error', 'Ocurrió un error al crear la pregunta', 'error');
