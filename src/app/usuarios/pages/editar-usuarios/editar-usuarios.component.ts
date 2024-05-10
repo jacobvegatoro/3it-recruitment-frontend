@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 import Swal from 'sweetalert2';
 import { UsuarioService } from '../../services/usuarios.service';
@@ -10,10 +15,9 @@ import { RolUsuarioService } from 'src/app/rolUsuario/services/rol-usuario.servi
 @Component({
   selector: 'app-editar-usuarios',
   templateUrl: './editar-usuarios.component.html',
-  styleUrls: ['./editar-usuarios.component.css']
+  styleUrls: ['./editar-usuarios.component.css'],
 })
-export class EditarUsuariosComponent implements OnInit{
-
+export class EditarUsuariosComponent implements OnInit {
   public myForm: FormGroup;
   public rolesUsuario: rolUsuario[] = [];
 
@@ -28,28 +32,43 @@ export class EditarUsuariosComponent implements OnInit{
     this.rolUsuarioService.obtenerRolesUsuario().subscribe((rolesUsuario) => {
       this.rolesUsuario = rolesUsuario;
     });
-    this.myForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(3)]],
-      apellido: ['', [Validators.required, Validators.minLength(3)]],
-      login: ['', [Validators.required, Validators.minLength(3)]],
-      clave: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarClave: ['', [Validators.required, Validators.minLength(6)]],
-      correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required, Validators.pattern(/^\+\d{9,15}$/)]],
-      idRolUsuario: ['', Validators.required]
-    }, {
-      validators: this.passwordMatchValidator,
+    this.myForm = this.fb.group(
+      {
+        nombre: ['', [Validators.required, Validators.minLength(3)]],
+        apellido: ['', [Validators.required, Validators.minLength(3)]],
+        login: ['', [Validators.required, Validators.minLength(3)]],
+        clave: ['', [Validators.required, Validators.minLength(6)]],
+        confirmarClave: ['', [Validators.required, Validators.minLength(6)]],
+        correo: ['', [Validators.required, Validators.email]],
+        telefono: [
+          '',
+          [Validators.required, Validators.pattern(/^\+\d{9,15}$/)],
+        ],
+        idRolUsuario: ['', Validators.required],
+      },
+      {
+        validators: this.passwordMatchValidator,
+      }
+    );
+    this.loadUsuario();
+  }
+  loadUsuario(): void {
+    const { id } = this.activatedRoute.snapshot.params;
+    this.usuarioService.getUsuarioById(id).subscribe({
+      next: (usuario) => {
+        this.myForm.patchValue(usuario);
+      },
+      error: () => {
+        Swal.fire('Error', 'Ocurrió un error al cargar los datos del usuario', 'error');
+      },
     });
   }
-  
-
-  passwordMatchValidator(control: AbstractControl){
-    return control.get('clave')?.value ===
-    control.get('confirmarClave')?.value 
-    ? null
-    : {mismatch: true}
+  passwordMatchValidator(control: AbstractControl) {
+    return control.get('clave')?.value === control.get('confirmarClave')?.value
+      ? null
+      : { mismatch: true };
   }
-  
+
   isValidField(field: string): boolean | null {
     const control = this.myForm.get(field);
     return control ? control.errors && control.touched : null;
@@ -99,7 +118,11 @@ export class EditarUsuariosComponent implements OnInit{
         this.myForm.reset();
       },
       error: () => {
-        Swal.fire('Error', 'Ocurrió un error al actualizar el usuario', 'error');
+        Swal.fire(
+          'Error',
+          'Ocurrió un error al actualizar el usuario',
+          'error'
+        );
       },
     });
   }
