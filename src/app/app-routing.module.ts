@@ -43,6 +43,11 @@ const routes: Routes = [
     loadChildren: () => import('./preguntas/pregunta.module').then(m => m.PreguntaModule )
   },
   {
+    path:'usuarios',
+    canActivate: [ isAuthenticatedGuard ],
+    loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule )
+  },
+  {
     path:'auth',
     canActivate: [ isNotAuthenticatedGuard ],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule )
