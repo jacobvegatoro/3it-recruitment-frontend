@@ -30,6 +30,7 @@ export class EditarPreguntaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //console.log("Editar pregunta");
     this.loadPregunta();
     this.mantenedorRolesService.obtenerRoles().subscribe((roles) => {
       this.roles = roles;
@@ -37,6 +38,7 @@ export class EditarPreguntaComponent implements OnInit {
   }
 
   private loadPregunta(): void {
+    console.log("Entro a load");
     this.activatedRoute.params
       .pipe(
         switchMap(({ id }) => this.preguntaService.obtenerPreguntaPorID(id)),
@@ -51,7 +53,7 @@ export class EditarPreguntaComponent implements OnInit {
         this.myForm.patchValue({
           detalle: pregunta.detalle,
           activo: pregunta.activo,
-          idRol: pregunta.rol.id
+          idRol: pregunta.idRol
         });
         console.log('Valores del formulario después de patchValue:', this.myForm.value);
       });
@@ -96,7 +98,7 @@ export class EditarPreguntaComponent implements OnInit {
     this.preguntaService.actualizarPregunta(id, pregunta).subscribe({
       next: () => {
         this.showSuccessMessage('La pregunta ha sido actualizada exitosamente');
-        this.myForm.reset();
+        //this.myForm.reset();
       },
       error: () => {
         this.showErrorMessage('Ocurrió un error al actualizar la pregunta');
