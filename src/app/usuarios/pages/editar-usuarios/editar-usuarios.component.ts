@@ -50,8 +50,19 @@ export class EditarUsuariosComponent implements OnInit {
         validators: this.passwordMatchValidator,
       }
     );
+    this.loadUsuario();
   }
-
+  loadUsuario(): void {
+    const { id } = this.activatedRoute.snapshot.params;
+    this.usuarioService.getUsuarioById(id).subscribe({
+      next: (usuario) => {
+        this.myForm.patchValue(usuario);
+      },
+      error: () => {
+        Swal.fire('Error', 'Ocurrió un error al cargar los datos del usuario', 'error');
+      },
+    });
+  }
   passwordMatchValidator(control: AbstractControl) {
     return control.get('clave')?.value === control.get('confirmarClave')?.value
       ? null
