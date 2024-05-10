@@ -19,7 +19,6 @@ registerLocaleData( localeEsCL );
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,

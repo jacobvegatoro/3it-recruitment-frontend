@@ -1,0 +1,176 @@
+<div class="container mt-5 py-4 px-5">
+  <h2>Usuarios - Editar usuario</h2>
+
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="myForm" (ngSubmit)="onSave()" autocomplete="off">
+        <!-- Campo de nombre -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Nombre</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="nombre"
+              placeholder="Nombre"
+            />
+            <span *ngIf="isValidField('nombre')" class="form-text text-danger">
+              {{ getFieldError("nombre") }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Campo de apellido -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Apellido</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="apellido"
+              placeholder="Apellido"
+            />
+            <span
+              *ngIf="isValidField('apellido')"
+              class="form-text text-danger"
+            >
+              {{ getFieldError("apellido") }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Campo de login -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Nombre Usuario</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="login"
+              placeholder="Login"
+            />
+            <span *ngIf="isValidField('login')" class="form-text text-danger">
+              {{ getFieldError("login") }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Campo de clave -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Clave</label>
+          <div class="col-sm-9">
+            <input
+              type="password"
+              class="form-control"
+              formControlName="clave"
+              placeholder="Clave"
+            />
+            <span *ngIf="isValidField('clave')" class="form-text text-danger">
+              {{ getFieldError("clave") }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Campo de Confirmar clave -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Confirmar Clave</label>
+          <div class="col-sm-9">
+            <input
+              type="password"
+              class="form-control"
+              formControlName="confirmarClave"
+              placeholder="Confirmar Clave"
+            />
+            <span
+              *ngIf="myForm.get('confirmarClave')?.dirty"
+              class="form-text"
+              [class.text-danger]="myForm.hasError('mismatch')"
+              [class.text-success]="!myForm.hasError('mismatch')"
+            >
+              <ng-container *ngIf="myForm.hasError('mismatch')">
+                La clave no coincide
+              </ng-container>
+              <ng-container *ngIf="!myForm.hasError('mismatch')">
+                La clave coincide
+              </ng-container>
+            </span>
+          </div>
+        </div>
+
+        <!-- Campo de correo -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Correo</label>
+          <div class="col-sm-9">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="correo"
+              placeholder="example@3it.cl"
+            />
+            <span *ngIf="isValidField('correo')" class="form-text text-danger">
+              {{ getFieldError("correo") }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Campo de teléfono -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Teléfono</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="telefono"
+              placeholder="+56912345678"
+            />
+            <span
+              *ngIf="isValidField('telefono')"
+              class="form-text text-danger"
+            >
+              {{ getFieldError("telefono") }}
+            </span>
+          </div>
+        </div>
+        
+        <!-- Campo de Rol de Usuario -->
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Rol de Usuario</label>
+          <div class="col-sm-9">
+            <select formControlName="idRolUsuario" class="form-control">
+              <option value="" disabled selected>Selecciona un rol</option>
+              <option
+                *ngFor="let rolUsuario of rolesUsuario"
+                [value]="rolUsuario.id"
+              >
+                {{ rolUsuario.nombre }}
+              </option>
+            </select>
+            <span
+              *ngIf="isValidField('idRolUsuario')"
+              class="form-text text-danger"
+            >
+              {{ getFieldError("idRolUsuario") }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Campo de botones -->
+        <div class="row">
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-warning"
+              [routerLink]="['/usuarios/listado']"
+            >
+              Volver
+            </button>
+            <button type="submit" class="btn btn-primary float-end">
+              Guardar
+              <i class="fas fa-save"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
