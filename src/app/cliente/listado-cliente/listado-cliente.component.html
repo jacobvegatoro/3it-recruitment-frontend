@@ -1,0 +1,58 @@
+<div class="container mt-5 py-4 px-5">
+    <h2 class="main-title">Clientes</h2>
+  
+    <div class="row justify-content-end mb-3">
+      <div class="col-auto">
+        <button [routerLink]="['/cliente/crear']" class="btn btn-success">
+          Crear Cliente
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Tabla -->
+    <div>
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
+        </ng-container>
+  
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Cliente</th>
+          <td mat-cell *matCellDef="let cliente">{{ cliente.nombre }}</td>
+        </ng-container>
+  
+        <!-- Casa Matriz Column -->
+        <ng-container matColumnDef="casaMatriz">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Casa Matriz</th>
+          <td mat-cell *matCellDef="let cliente">{{ cliente.casaMatriz }}</td>
+        </ng-container>
+  
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let cliente">
+            <a [routerLink]="['/cliente/actualizar', cliente.id]">
+              <i class="fas fa-edit" title="Editar"></i>
+            </a>
+            &nbsp;
+            <a (click)="eliminarCliente(cliente.id)">
+              <i class="fas fa-trash text-danger" title="Eliminar"></i>
+            </a>
+            &nbsp;
+          </td>
+        </ng-container>
+  
+        <!-- Definición de las filas de la tabla -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+  
+      <!-- Paginador -->
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+  

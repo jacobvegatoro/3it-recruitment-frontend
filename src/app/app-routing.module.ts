@@ -48,6 +48,11 @@ const routes: Routes = [
     loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule )
   },
   {
+    path:'cliente',
+    canActivate: [ isAuthenticatedGuard ],
+    loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule )
+  },
+  {
     path:'auth',
     canActivate: [ isNotAuthenticatedGuard ],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule )
