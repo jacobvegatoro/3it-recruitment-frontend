@@ -5,8 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { Usuario } from '../../interfaces/usuario.interface';
 import Swal from 'sweetalert2';
 import { UsuarioService } from '../../services/usuarios.service';
-import { RolUsuarioService } from 'src/app/rolUsuario/services/rol-usuario.service';
-import { rolUsuario } from 'src/app/rolUsuario/interfaces/rol-usuario.interface';
 
 @Component({
   selector: 'app-listado-usuarios',
