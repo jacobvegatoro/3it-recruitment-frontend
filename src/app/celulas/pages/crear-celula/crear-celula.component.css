@@ -1,0 +1,18 @@
+.list-group {
+    border: 1px solid var(--white02);
+  }
+  .container {
+    padding-top: 20px;
+    max-width: 100%;
+    position: absolute;
+    left: 0;
+    margin-left: 5px;
+  }
+  
+  .mat-elevation-z0 {
+    box-shadow: none !important; 
+  }
+  
+  .column-data, .column-name {
+    padding: 12px 70px;
+  }

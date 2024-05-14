@@ -53,6 +53,11 @@ const routes: Routes = [
     loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule )
   },
   {
+    path:'celulas',
+    canActivate: [ isAuthenticatedGuard ],
+    loadChildren: () => import('./celulas/celulas.module').then(m => m.CelulasModule )
+  },
+  {
     path:'auth',
     canActivate: [ isNotAuthenticatedGuard ],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule )

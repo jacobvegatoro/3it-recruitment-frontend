@@ -41,6 +41,11 @@
   color: #fff;
 }
 
+.nav-link{
+  color: #fff;
+  padding: 0 15px;
+}
+
 .nav-item.active {
   font-weight: bold;
 }
