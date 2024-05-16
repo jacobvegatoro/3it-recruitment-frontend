@@ -24,7 +24,7 @@ export class CrearEntrevistaComponent implements OnInit {
     idProceso: ['', [ Validators.required ]],
     fecha_entrevista: ['', [ Validators.required ]],
     perfilBuscado: ['', [ Validators.required, Validators.minLength(3) ]],
-    comentariosPrueba: ['', [ Validators.required, Validators.minLength(5) ]],
+    //comentariosPrueba: ['', [ Validators.required, Validators.minLength(5) ]],
     comentariosGenerales: ['', [ Validators.required ] ],
     recomendaciones: ['', [ Validators.required ] ],
     descripcionPersonal: ['', [ Validators.required ] ],
@@ -216,7 +216,7 @@ export class CrearEntrevistaComponent implements OnInit {
     }*/
 
     formulario.perfilBuscado = entrevista.perfilBuscado;
-    formulario.comentariosPrueba = entrevista.comentariosPrueba;
+    //formulario.comentariosPrueba = entrevista.comentariosPrueba;
     formulario.comentariosGenerales = entrevista.comentariosGenerales;
     formulario.recomendaciones = entrevista.recomendaciones;
     formulario.descripcionPersonal = entrevista.descripcionPersonal;
@@ -337,7 +337,7 @@ export class CrearEntrevistaComponent implements OnInit {
   prepararAlmacenamiento():void{
     this.entrevistaActual.fecha_entrevista = this.formEntrevista.get('fecha_entrevista')?.value;
     this.entrevistaActual.perfilBuscado = this.formEntrevista.get('perfilBuscado')?.value;
-    this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
+    //this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
     this.entrevistaActual.comentariosGenerales = this.formEntrevista.get('comentariosGenerales')?.value;
     this.entrevistaActual.recomendaciones = this.formEntrevista.get('recomendaciones')?.value;
     this.entrevistaActual.descripcionPersonal = this.formEntrevista.get('descripcionPersonal')?.value;
@@ -349,7 +349,7 @@ export class CrearEntrevistaComponent implements OnInit {
     this.entrevistaActual.idProceso = this.formEntrevista.get('idProceso')?.value;
     this.entrevistaActual.fecha_entrevista = this.formEntrevista.get('fecha_entrevista')?.value;
     this.entrevistaActual.perfilBuscado = this.formEntrevista.get('perfilBuscado')?.value;
-    this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
+    //this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
     this.entrevistaActual.comentariosGenerales = this.formEntrevista.get('comentariosGenerales')?.value;
     this.entrevistaActual.recomendaciones = this.formEntrevista.get('recomendaciones')?.value;
     this.entrevistaActual.descripcionPersonal = this.formEntrevista.get('descripcionPersonal')?.value;
@@ -862,7 +862,7 @@ export class CrearEntrevistaComponent implements OnInit {
     this.entrevistaActual.idProceso = this.formEntrevista.get('idProceso')?.value;
     this.entrevistaActual.fecha_entrevista = this.formEntrevista.get('fecha_entrevista')?.value;
     this.entrevistaActual.perfilBuscado = this.formEntrevista.get('perfilBuscado')?.value;
-    this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
+    //this.entrevistaActual.comentariosPrueba = this.formEntrevista.get('comentariosPrueba')?.value;
     this.entrevistaActual.comentariosGenerales = this.formEntrevista.get('comentariosGenerales')?.value;
     this.entrevistaActual.recomendaciones = this.formEntrevista.get('recomendaciones')?.value;
     this.entrevistaActual.descripcionPersonal = this.formEntrevista.get('descripcionPersonal')?.value;
