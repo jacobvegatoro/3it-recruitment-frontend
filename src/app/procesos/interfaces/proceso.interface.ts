@@ -5,10 +5,12 @@ import { Postulante } from "./postulante.interface";
 import { Rol } from "./rol.interface";
 
 export interface Proceso {
-    id:            number;
-    fecha_ingreso: string;
-    postulante:    Postulante;
-    rol:           Rol;
-    celula:        Celula;
+    id:                 number;
+    fecha_ingreso:      string;
+    comentariosPrueba:  string;
+    puntajePrueba:      number;
+    postulante:         Postulante;
+    rol:                Rol;
+    celula:             Celula;
 }
 
