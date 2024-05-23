@@ -1,5 +1,6 @@
+import { EtapaProceso } from './../../interfaces/etapa-proceso.interface';
 import { ProcesoSave } from './../../interfaces/proceso-save.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -10,6 +11,8 @@ import { ProcesosService } from '../../services/procesos.service';
 import { Cliente } from '../../interfaces/cliente.interface';
 import { Celula } from '../../interfaces/celula.interface';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Proceso } from '../../interfaces/proceso.interface';
 
 @Component({
   selector: 'app-crear-proceso',
@@ -22,6 +25,7 @@ export class CrearProcesoComponent implements OnInit {
   public roles:Rol [] = [];
   public clientes:Cliente [] = [];
   public celulas:Celula [] = [];
+  public procesos:Proceso [] = [];
 
   public formProceso:FormGroup = this.fb.group({ 
     idPostulante: [this.postulante?.id,[]],
@@ -35,7 +39,8 @@ export class CrearProcesoComponent implements OnInit {
     private postulantesService:PostulantesService,
     private procesosService:ProcesosService, 
     private activatedRoute:ActivatedRoute,
-    private router:Router 
+    private router:Router,
+    private authService:AuthService 
   ){}
 
   ngOnInit(): void {
@@ -44,6 +49,7 @@ export class CrearProcesoComponent implements OnInit {
     this.obtenerClientes();
     //this.obtenerCelulas();
     this.onClienteChanged();
+    console.log(this.authService.currentUser()?.id);
   }
 
   obtenerPostulante():void{
@@ -122,17 +128,13 @@ export class CrearProcesoComponent implements OnInit {
     if ( this.formProceso.invalid ){
       this.formProceso.markAllAsTouched();
       return;
-    }  
-
-    console.log(this.currentProceso); 
+    }
 
     this.procesosService.crearProceso( this.currentProceso )
     .subscribe({
-      next: () => {
-        Swal.fire({  
-          text: "El proceso ha sido creado exitosamente",
-          icon: "success"
-        });
+      next: (procesos) => {
+        console.log(procesos[0]);
+        this.crearEtapaInicial(procesos[0].id);
       },
       error: () => {
         Swal.fire('Error', 'Ocurrió un error al crear el proceso', 'error');
@@ -144,6 +146,32 @@ export class CrearProcesoComponent implements OnInit {
     this.formProceso.controls['idCelula'].setValue('', {onlySelf: true});
     this.formProceso.controls['idRol'].setValue('', {onlySelf: true});
 
+  }
+
+  crearEtapaInicial(idProceso:number):void{
+    let etapaProceso:EtapaProceso = {
+      comentario:"Proceso creado", 
+      estado:"Pendiente", 
+      idProceso:idProceso, 
+      idEtapa:1, 
+      idUsuario: this.authService.currentUser()?.id
+    };
+
+    this.procesosService.crearEtapaInicialProceso( etapaProceso )
+    .subscribe({
+      next: () => {
+        Swal.fire({  
+          text: "El proceso ha sido creado exitosamente",
+          icon: "success"
+        });
+      },
+      error: () => {
+        Swal.fire({  
+          text: "El proceso ha sido creado, pero con algunos inconvenientes",
+          icon: "warning"
+        });
+      }
+    });
   }
 
   onClienteChanged():void{

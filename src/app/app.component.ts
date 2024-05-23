@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   
-  //title = 'recruitmentFrontendApp';
+  title = 'recruitmentFrontendApp';
 
   private authService = inject ( AuthService );
   private router = inject ( Router );

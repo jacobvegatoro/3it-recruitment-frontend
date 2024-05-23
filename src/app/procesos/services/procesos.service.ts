@@ -7,6 +7,7 @@ import { Rol } from '../interfaces/rol.interface';
 import { Cliente } from '../interfaces/cliente.interface';
 import { Celula } from '../interfaces/celula.interface';
 import { ProcesoSave } from '../interfaces/proceso-save.interface';
+import { EtapaProceso } from '../interfaces/etapa-proceso.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -118,14 +119,24 @@ export class ProcesosService {
 
   }
 
-  crearProceso(proceso:ProcesoSave):Observable<Proceso>{
+  crearProceso(proceso:ProcesoSave):Observable<Proceso[]>{
     const url = `${this.apiUrl}/procesos`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders()
       .set('Authorization',`Bearer ${ token }`);
 
-    return this.http.post<Proceso>(url, proceso, { headers });
+    return this.http.post<Proceso[]>(url, proceso, { headers });
+  }
+
+  crearEtapaInicialProceso(etapaProceso:EtapaProceso):Observable<EtapaProceso[]>{
+    const url = `${this.apiUrl}/etapasprocesos`;
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders()
+      .set('Authorization',`Bearer ${ token }`);
+
+    return this.http.post<EtapaProceso[]>(url, etapaProceso, { headers });
   }
 
 }

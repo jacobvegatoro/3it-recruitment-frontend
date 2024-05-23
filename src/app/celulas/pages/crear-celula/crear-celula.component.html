@@ -1,0 +1,53 @@
+<div class="container mt-5 py-4 px-5">
+
+    <h2>Células - Crear célula</h2>
+    
+    <div class="row">
+        <div class="col">
+    
+            <form [formGroup]="myForm" (ngSubmit)="onSave()" autocomplete="off">
+    
+                <!-- Campo de nombre -->
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Nombre</label>
+                    <div class="col-sm-9">
+                        <input type="text"
+                               class="form-control"
+                               formControlName="nombre"
+                               placeholder="Escriba el nombre">
+                        <span *ngIf="isValidField('nombre')" class="form-text text-danger">
+                            {{ getFieldError('nombre') }}
+                        </span>
+                    </div>
+                </div>
+                                
+                <!-- Campo de Cliente -->
+                <div class="mb-3 row">
+                    <label class="col-sm-3 col-form-label">Cliente</label>
+                    <div class="col-sm-9">
+                        <select name="cliente" id="cliente" formControlName="idCliente" class="form-control">
+                            <option value="" disabled selected>Selecciona un cliente</option>
+                            <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }}</option>
+                        </select>
+                        <span *ngIf="isValidField('idCliente')"
+                            class="form-text text-danger">
+                            {{ getFieldError('idCliente') }}
+                        </span>
+                    </div>
+                </div>
+                <!-- Campo de botones -->
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-warning" [routerLink]="['/celulas/listado']">
+                            Volver
+                        </button>
+                        <button type="submit" class="btn btn-primary float-end">
+                            Guardar
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
