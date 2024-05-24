@@ -1,7 +1,13 @@
-# RecruitmentFrontendApp
+# Plataforma de reclutamiento - Frontend
 
-Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) en su versión 16.2.4.
-Corresponde a una plataforma web que permite registrar entrevistas de diferentes candidatos, y llevar un registro de las actividades de capacitación de los trabajadores de una empresa.
+Recruitment es una plataforma que permite registrar entrevistas técnicas de los postulantes, independiente del perfil al cual postule. Contiene todas las acciones que permiten desde la creación de roles, clientes y preguntas, hasta el desarrollo de la entrevista misma, agregando comentarios a la entrevista y puntaje a las respuestas entregadas.
+
+Este repositorio contiene la plataforma web que permite registrar entrevistas de diferentes candidatos, y administrar clientes, roles, preguntas y usuarios de la aplicación.
+
+## Requisitos Previos
+
+- [Node v20.10](https://nodejs.org/en)
+- [Angular v16.2](https://angular.io/)
 
 ## Ejecución local
 
