@@ -82,18 +82,27 @@ export class CrearUsuarioComponent implements OnInit {
     }
     const usuario = this.myForm.value;
     delete usuario.confirmarClave;
-
-    this.usuarioService.crearUsuario(this.myForm.value).subscribe({
+  
+    this.usuarioService.crearUsuario(usuario).subscribe({
       next: () => {
         Swal.fire({
           text: 'El usuario ha sido creado exitosamente',
           icon: 'success',
         });
-        this.myForm.reset();
+        this.myForm.reset({
+          nombre: '',
+          apellido: '',
+          login: '',
+          clave: '',
+          confirmarClave: '',
+          correo: '',
+          telefono: '',
+          idRolUsuario: ''
+        });
       },
       error: () => {
         Swal.fire('Error', 'Ocurrió un error al crear el usuario', 'error');
       },
     });
-  }
+  }  
 }

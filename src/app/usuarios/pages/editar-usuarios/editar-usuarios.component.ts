@@ -18,7 +18,8 @@ import { RolUsuarioService } from 'src/app/rolUsuario/services/rol-usuario.servi
   styleUrls: ['./editar-usuarios.component.css'],
 })
 export class EditarUsuariosComponent implements OnInit {
-  public myForm: FormGroup;
+  public generalForm: FormGroup;
+  public passwordForm: FormGroup;
   public rolesUsuario: rolUsuario[] = [];
 
   constructor(
@@ -32,52 +33,59 @@ export class EditarUsuariosComponent implements OnInit {
     this.rolUsuarioService.obtenerRolesUsuario().subscribe((rolesUsuario) => {
       this.rolesUsuario = rolesUsuario;
     });
-    this.myForm = this.fb.group(
+
+    this.generalForm = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', [Validators.required, Validators.minLength(3)]],
+      login: ['', [Validators.required, Validators.minLength(3)]],
+      correo: ['', [Validators.required, Validators.email]],
+      telefono: [
+        '',
+        [Validators.required, Validators.pattern(/^\+\d{9,15}$/)],
+      ],
+      idRolUsuario: ['', Validators.required],
+    });
+
+    this.passwordForm = this.fb.group(
       {
-        nombre: ['', [Validators.required, Validators.minLength(3)]],
-        apellido: ['', [Validators.required, Validators.minLength(3)]],
-        login: ['', [Validators.required, Validators.minLength(3)]],
         clave: ['', [Validators.required, Validators.minLength(6)]],
         confirmarClave: ['', [Validators.required, Validators.minLength(6)]],
-        correo: ['', [Validators.required, Validators.email]],
-        telefono: [
-          '',
-          [Validators.required, Validators.pattern(/^\+\d{9,15}$/)],
-        ],
-        idRolUsuario: ['', Validators.required],
       },
       {
         validators: this.passwordMatchValidator,
       }
     );
+
     this.loadUsuario();
   }
+
   loadUsuario(): void {
     const { id } = this.activatedRoute.snapshot.params;
     this.usuarioService.getUsuarioById(id).subscribe({
       next: (usuario) => {
-        this.myForm.patchValue(usuario);
+        this.generalForm.patchValue(usuario);
       },
       error: () => {
         Swal.fire('Error', 'Ocurrió un error al cargar los datos del usuario', 'error');
       },
     });
   }
+
   passwordMatchValidator(control: AbstractControl) {
     return control.get('clave')?.value === control.get('confirmarClave')?.value
       ? null
       : { mismatch: true };
   }
 
-  isValidField(field: string): boolean | null {
-    const control = this.myForm.get(field);
+  isValidField(form: FormGroup, field: string): boolean | null {
+    const control = form.get(field);
     return control ? control.errors && control.touched : null;
   }
 
-  getFieldError(field: string): string | null {
-    if (!this.myForm.controls[field]) return null;
+  getFieldError(form: FormGroup, field: string): string | null {
+    if (!form.controls[field]) return null;
 
-    const errors = this.myForm.controls[field].errors || {};
+    const errors = form.controls[field].errors || {};
 
     for (const key of Object.keys(errors)) {
       switch (key) {
@@ -98,31 +106,84 @@ export class EditarUsuariosComponent implements OnInit {
     return null;
   }
 
-  onSave(): void {
-    if (this.myForm.invalid) {
-      this.myForm.markAllAsTouched();
+  onSaveGeneral(): void {
+    if (this.generalForm.invalid) {
+      this.generalForm.markAllAsTouched();
+      return;
+    }
+  
+    const { id } = this.activatedRoute.snapshot.params;
+    const usuarioData = this.generalForm.value;
+  
+    this.usuarioService.getUsuarioById(id).subscribe({
+      next: (usuarioActual) => {
+        const usuario = {
+          ...usuarioActual,
+          ...usuarioData,
+        };
+  
+        this.usuarioService.actualizarUsuario(id, usuario).subscribe({
+          next: () => {
+            Swal.fire({
+              text: 'El usuario ha sido actualizado exitosamente',
+              icon: 'success',
+            });
+          },
+          error: (err) => {
+            console.error('Error al actualizar usuario:', err);
+            Swal.fire(
+              'Error',
+              'Ocurrió un error al actualizar el usuario',
+              'error'
+            );
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Error al obtener datos del usuario:', err);
+        Swal.fire(
+          'Error',
+          'Ocurrió un error al obtener los datos del usuario',
+          'error'
+        );
+      },
+    });
+  }  
+
+  onSavePassword(): void {
+    if (this.passwordForm.invalid) {
+      this.passwordForm.markAllAsTouched();
       return;
     }
 
     const { id } = this.activatedRoute.snapshot.params;
-    const usuario = this.myForm.value;
 
-    delete usuario.confirmarClave;
+    this.usuarioService.getUsuarioById(id).subscribe({
+      next: (usuario) => {
+        const passwordData = {
+          ...usuario,
+          clave: this.passwordForm.value.clave,
+        };
 
-    this.usuarioService.actualizarUsuario(id, usuario).subscribe({
-      next: () => {
-        Swal.fire({
-          text: 'El usuario ha sido actualizado exitosamente',
-          icon: 'success',
+        this.usuarioService.actualizarUsuario(id, passwordData).subscribe({
+          next: () => {
+            Swal.fire({
+              text: 'La clave ha sido actualizada exitosamente',
+              icon: 'success',
+            });
+            this.passwordForm.reset();
+          },
+          error: () => {
+            Swal.fire(
+              'Error',
+              'Ocurrió un error al actualizar la clave',
+              'error'
+            );
+          },
         });
-        this.myForm.reset();
       },
       error: () => {
-        Swal.fire(
-          'Error',
-          'Ocurrió un error al actualizar el usuario',
-          'error'
-        );
+        Swal.fire('Error', 'Ocurrió un error al obtener los datos del usuario', 'error');
       },
     });
   }
