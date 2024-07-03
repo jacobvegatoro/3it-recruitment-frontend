@@ -106,10 +106,15 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Descripción personal</label>
                 <div class="col-sm-9">
+                    <div class="input-group">
                     <textarea name="descripcionPersonal"
                         id="descripcionPersonal"
                         class="form-control"
                         formControlName="descripcionPersonal"></textarea>
+                        <button type="button" (click)="toggleListening('descripcionPersonal')" class="btn btn-outline-primary">
+                            {{ isListening['descripcionPersonal'] ? 'Detener' : 'Iniciar' }}
+                          </button>
+                        </div>
                     <span *ngIf="isValidField('descripcionPersonal')"
                         class="form-text text-danger">
                         {{ getFieldError('descripcionPersonal') }}
@@ -160,18 +165,18 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 1</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr1" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr1')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr1') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr1" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr1')" class="btn btn-outline-primary">
+                      {{ isListening['tr1'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr1')" class="form-text text-danger">
+                    {{ getFieldError('tr1') }}
+                  </span>
                 </div>
-            </div>
-
+              </div>           
+              
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 1</label>
                 <div class="col-sm-9">
@@ -206,17 +211,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 2</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr2" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr2')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr2') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr2" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr2')" class="btn btn-outline-primary">
+                      {{ isListening['tr2'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr2')" class="form-text text-danger">
+                    {{ getFieldError('tr2') }}
+                  </span>
                 </div>
-            </div>
+              </div>
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 2</label>
@@ -252,17 +257,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 3</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr3" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr3')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr3') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr3" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr3')" class="btn btn-outline-primary">
+                      {{ isListening['tr3'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr3')" class="form-text text-danger">
+                    {{ getFieldError('tr3') }}
+                  </span>
                 </div>
-            </div>
+              </div>
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 3</label>
@@ -298,17 +303,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 4</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr4" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr4')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr4') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr4" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr4')" class="btn btn-outline-primary">
+                      {{ isListening['tr4'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr4')" class="form-text text-danger">
+                    {{ getFieldError('tr4') }}
+                  </span>
                 </div>
-            </div>
+              </div>
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 4</label>
@@ -344,17 +349,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 5</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr5" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr5')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr5') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr5" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr5')" class="btn btn-outline-primary">
+                      {{ isListening['tr5'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr5')" class="form-text text-danger">
+                    {{ getFieldError('tr5') }}
+                  </span>
                 </div>
-            </div>
+              </div>
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 5</label>
@@ -390,17 +395,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 6</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr6" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr6')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr6') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr6" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr6')" class="btn btn-outline-primary">
+                      {{ isListening['tr6'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr6')" class="form-text text-danger">
+                    {{ getFieldError('tr6') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 6</label>
@@ -436,17 +441,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 7</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr7" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr7')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr7') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr7" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr7')" class="btn btn-outline-primary">
+                      {{ isListening['tr7'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr7')" class="form-text text-danger">
+                    {{ getFieldError('tr7') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 7</label>
@@ -482,17 +487,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 8</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr8" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr8')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr8') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr8" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr8')" class="btn btn-outline-primary">
+                      {{ isListening['tr8'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr8')" class="form-text text-danger">
+                    {{ getFieldError('tr8') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 8</label>
@@ -528,17 +533,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 9</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr9" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr9')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr9') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr9" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr9')" class="btn btn-outline-primary">
+                      {{ isListening['tr9'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr9')" class="form-text text-danger">
+                    {{ getFieldError('tr9') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 9</label>
@@ -574,17 +579,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 10</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr10" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr10')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr10') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr10" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr10')" class="btn btn-outline-primary">
+                      {{ isListening['tr10'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr10')" class="form-text text-danger">
+                    {{ getFieldError('tr10') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 10</label>
@@ -620,17 +625,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 11</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr11" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr11')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr11') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr11" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr11')" class="btn btn-outline-primary">
+                      {{ isListening['tr11'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr11')" class="form-text text-danger">
+                    {{ getFieldError('tr11') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 11</label>
@@ -666,17 +671,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 12</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr12" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr12')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr12') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr12" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr12')" class="btn btn-outline-primary">
+                      {{ isListening['tr12'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr12')" class="form-text text-danger">
+                    {{ getFieldError('tr12') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 12</label>
@@ -712,17 +717,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 13</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr13" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr13')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr13') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr13" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr13')" class="btn btn-outline-primary">
+                      {{ isListening['tr13'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr13')" class="form-text text-danger">
+                    {{ getFieldError('tr13') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 13</label>
@@ -758,17 +763,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 14</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr14" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr14')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr14') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr14" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr14')" class="btn btn-outline-primary">
+                      {{ isListening['tr14'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr14')" class="form-text text-danger">
+                    {{ getFieldError('tr14') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 14</label>
@@ -804,17 +809,17 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Respuesta 15</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
-                        <textarea 
-                            formControlName="tr15" 
-                            class="form-control"></textarea>
-                    </div>
-                    <span *ngIf="isValidField('tr15')" 
-                        class="form-text text-danger">
-                        {{ getFieldError('tr15') }}
-                    </span>
+                  <div class="input-group">
+                    <textarea formControlName="tr15" class="form-control"></textarea>
+                    <button type="button" (click)="toggleListening('tr15')" class="btn btn-outline-primary">
+                      {{ isListening['tr15'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('tr15')" class="form-text text-danger">
+                    {{ getFieldError('tr15') }}
+                  </span>
                 </div>
-            </div>
+              </div>              
 
             <div class="mb-5 row">
                 <label class="col-sm-3 col-form-label">Puntaje 15</label>
