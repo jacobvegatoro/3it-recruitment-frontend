@@ -6,20 +6,37 @@ import { Injectable } from '@angular/core';
 export class VoiceRecognitionService {
   recognition: any;
   isListening = false;
+  onTranscript: ((interimTranscript: string, finalTranscript: string) => void) | null = null;
+  onError: ((error: any) => void) | null = null;
 
   constructor() {
     const { webkitSpeechRecognition }: IWindow = <IWindow><unknown>window;
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
-    this.recognition.interimResults = false;
+    this.recognition.interimResults = true;
 
     this.recognition.onresult = (event: any) => {
-      const transcript = event.results[event.resultIndex][0].transcript;
-      console.log('Transcripción:', transcript);
+      let interimTranscript = '';
+      let finalTranscript = '';
+
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript;
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+
+      if (this.onTranscript) {
+        this.onTranscript(interimTranscript, finalTranscript);
+      }
     };
 
     this.recognition.onerror = (event: any) => {
-      console.error('Error de reconocimiento de voz:', event.error);
+      if (this.onError) {
+        this.onError(event);
+      }
     };
   }
 
