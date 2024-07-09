@@ -103,6 +103,7 @@ export class CrearEntrevistaComponent implements OnInit {
   public respuestasExistentes: RespuestaExistente[] = [];
   private currentControlName: string = '';
   public isListening: { [key: string]: boolean } = {};
+  private finalTranscript: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -118,14 +119,19 @@ export class CrearEntrevistaComponent implements OnInit {
     this.obtenerProceso();
     this.obtenerEntrevistas();
 
-    this.voiceRecognitionService.recognition.onresult = (event: any) => {
-      const transcript = event.results[event.resultIndex][0].transcript;
+    this.voiceRecognitionService.onTranscript = (interimTranscript: string, finalTranscript: string) => {
       if (this.currentControlName) {
-        const currentValue = this.formEntrevista.get(this.currentControlName)?.value || '';
+        this.finalTranscript += finalTranscript;
+        const currentValue = this.finalTranscript + interimTranscript;
         this.formEntrevista.patchValue({
-          [this.currentControlName]: currentValue + ' ' + transcript
+          [this.currentControlName]: currentValue
         });
       }
+    };
+
+    this.voiceRecognitionService.onError = (error: any) => {
+      console.error('Error de reconocimiento de voz:', error);
+      this.stopListening(this.currentControlName);
     };
   }
 
@@ -140,6 +146,7 @@ export class CrearEntrevistaComponent implements OnInit {
   startListening(controlName: string) {
     this.currentControlName = controlName;
     this.isListening[controlName] = true;
+    this.finalTranscript = this.formEntrevista.get(this.currentControlName)?.value || '';
     this.voiceRecognitionService.start();
   }
 
@@ -147,6 +154,7 @@ export class CrearEntrevistaComponent implements OnInit {
     this.currentControlName = '';
     this.isListening[controlName] = false;
     this.voiceRecognitionService.stop();
+    this.finalTranscript = '';
   }
 
   definirIdEntrevista(): void {

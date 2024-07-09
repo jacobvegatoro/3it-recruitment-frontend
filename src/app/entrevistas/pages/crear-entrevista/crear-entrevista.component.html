@@ -106,21 +106,23 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Descripción personal</label>
                 <div class="col-sm-9">
-                    <div class="input-group">
+                  <div class="input-group">
                     <textarea name="descripcionPersonal"
-                        id="descripcionPersonal"
-                        class="form-control"
-                        formControlName="descripcionPersonal"></textarea>
-                        <button type="button" (click)="toggleListening('descripcionPersonal')" class="btn btn-outline-primary">
-                            {{ isListening['descripcionPersonal'] ? 'Detener' : 'Iniciar' }}
-                          </button>
-                        </div>
-                    <span *ngIf="isValidField('descripcionPersonal')"
-                        class="form-text text-danger">
-                        {{ getFieldError('descripcionPersonal') }}
-                    </span>
+                              id="descripcionPersonal"
+                              class="form-control"
+                              formControlName="descripcionPersonal"></textarea>
+                    <button type="button" 
+                            (click)="toggleListening('descripcionPersonal')" 
+                            [ngClass]="isListening['descripcionPersonal'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                            class="btn">
+                      {{ isListening['descripcionPersonal'] ? 'Detener' : 'Iniciar' }}
+                    </button>
+                  </div>
+                  <span *ngIf="isValidField('descripcionPersonal')" class="form-text text-danger">
+                    {{ getFieldError('descripcionPersonal') }}
+                  </span>
                 </div>
-            </div>
+              </div>                              
 
             <!-- Campo de preguntas del candidato -->
             <div class="mb-3 row">
@@ -167,7 +169,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr1" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr1')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr1')" 
+                    [ngClass]="isListening['tr1'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr1'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -213,7 +218,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr2" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr2')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr2')" 
+                    [ngClass]="isListening['tr2'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr2'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -259,7 +267,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr3" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr3')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr3')" 
+                    [ngClass]="isListening['tr3'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr3'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -305,7 +316,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr4" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr4')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr4')" 
+                    [ngClass]="isListening['tr4'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr4'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -351,7 +365,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr5" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr5')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr5')" 
+                    [ngClass]="isListening['tr5'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr5'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -397,7 +414,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr6" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr6')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr6')" 
+                    [ngClass]="isListening['tr6'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr6'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -443,7 +463,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr7" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr7')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr7')" 
+                    [ngClass]="isListening['tr7'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr7'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -489,7 +512,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr8" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr8')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr8')" 
+                    [ngClass]="isListening['tr8'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr8'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -535,7 +561,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr9" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr9')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr9')" 
+                    [ngClass]="isListening['tr9'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr9'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -581,7 +610,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr10" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr10')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr10')" 
+                    [ngClass]="isListening['tr10'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr10'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -627,7 +659,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr11" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr11')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr11')" 
+                    [ngClass]="isListening['tr11'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr11'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -673,7 +708,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr12" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr12')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr12')" 
+                    [ngClass]="isListening['tr12'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr12'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -719,7 +757,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr13" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr13')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr13')" 
+                    [ngClass]="isListening['tr13'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr13'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -765,7 +806,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr14" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr14')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr14')" 
+                    [ngClass]="isListening['tr14'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr14'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>
@@ -811,7 +855,10 @@
                 <div class="col-sm-9">
                   <div class="input-group">
                     <textarea formControlName="tr15" class="form-control"></textarea>
-                    <button type="button" (click)="toggleListening('tr15')" class="btn btn-outline-primary">
+                    <button type="button" 
+                    (click)="toggleListening('tr15')" 
+                    [ngClass]="isListening['tr15'] ? 'btn-outline-danger' : 'btn-outline-primary'"
+                    class="btn">
                       {{ isListening['tr15'] ? 'Detener' : 'Iniciar' }}
                     </button>
                   </div>

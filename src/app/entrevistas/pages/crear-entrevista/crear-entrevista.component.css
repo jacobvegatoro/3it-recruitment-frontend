@@ -1,27 +1,37 @@
 .container {
-    padding-top: 20px; /* Ajusta este valor según sea necesario */
-    max-width: 100%; /* Asegúrate de establecer el ancho en 100% */
-    position: absolute;
-    left: 0;
-  }
-  
-  .main-title {
-    margin-top: 5px; /* Espacio entre la barra de navegación y el título */
-  }
-  
-  .row {
-    margin-top: 5px; /* Espacio entre la barra de navegación y las opciones de búsqueda */
-  }
-  
-  table {
-    width: 100%; /* La tabla ocupará todo el ancho disponible */
-  }
-  
-  .mat-elevation-z0 {
-    box-shadow: none !important; /* Elimina cualquier sombra en la tabla */
-  }
-  
-  .column-data, .column-name {
-    padding: 12px 70px;
-  }
-  
+  padding-top: 20px; 
+  max-width: 100%; 
+  position: absolute;
+  left: 0;
+}
+
+.main-title {
+  margin-top: 5px; 
+}
+
+.row {
+  margin-top: 5px; 
+}
+
+table {
+  width: 100%;
+}
+
+.mat-elevation-z0 {
+  box-shadow: none !important; 
+}
+
+.column-data, .column-name {
+  padding: 12px 70px;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  background-color: #dc3545;
+  color: white; 
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
